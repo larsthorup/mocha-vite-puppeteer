@@ -1,0 +1,26 @@
+{
+  "name": "mocha-vite-puppeteer",
+  "version": "0.1.0",
+  "description": "Run your Mocha tests with Vite bundler and Puppeteer",
+  "bin": "cli.js",
+  "dependencies": {
+    "mocha": "^8.3.2",
+    "puppeteer": "^8.0.0",
+    "vite": "^2.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/larsthorup/mocha-vite-puppeteer.git"
+  },
+  "keywords": [
+    "mocha",
+    "vite",
+    "puppeteer"
+  ],
+  "author": "Lars Thorup <lars@zealake.com> (https://www.zealake.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/larsthorup/mocha-vite-puppeteer/issues"
+  },
+  "homepage": "https://github.com/larsthorup/mocha-vite-puppeteer#readme"
+}
