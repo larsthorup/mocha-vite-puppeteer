@@ -2,6 +2,8 @@
 
 Run your [Mocha](https://mochajs.org/) front-end tests with the [Vite](https://vitejs.dev/) bundler and the [Puppeteer](https://pptr.dev/) browser launcher.
 
+"mocha-vite-puppeteer" can be used with any existing Vite project and is not specific to Vue, React or any other front-end library.
+
 ## Install
 
 ```bash
