@@ -53,7 +53,7 @@ Note: "mocha-vite-puppeteer" is not React specific, and should work just as well
 Then run your tests, bundled with Vite, in Puppeteer with:
 
 ```bash
-npx mocha-vite-puppeteer
+$ npx mocha-vite-puppeteer
 ```
 
 For now, only the Mocha "spec" reporter is supported, and you will see output similar to:
@@ -68,4 +68,7 @@ An exit code of 0 indicates that all tests passes. In general, the exit code ind
 
 ## See also
 
-Sample project: [larsthorup/vite-sandbox](https://github.com/larsthorup/vite-sandbox).
+- Sample project: [larsthorup/vite-sandbox](https://github.com/larsthorup/vite-sandbox).
+- Blog post: [Front-end testing with Mocha, Vite and Puppeteer](https://www.fullstackagile.eu/2021/03/21/mocha-vite-puppeteer/)
+
+![](https://www.fullstackagile.eu/2021/03/21/mocha-vite-puppeteer/mocha-vite-puppeteer-diagram.png)
