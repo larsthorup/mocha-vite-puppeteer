@@ -56,7 +56,13 @@ Then run your tests, bundled with Vite, in Puppeteer with:
 $ npx mocha-vite-puppeteer
 ```
 
-For now, only the Mocha "spec" reporter is supported, and you will see output similar to:
+You can optionally specify a reporter, otherwise "spec" is the default. For now most of the built-in reporters are supported:
+
+```bash
+$ npx mocha-vite-puppeteer --reporter spec
+```
+
+You will see output similar to:
 
 ```text
   Counter
@@ -64,7 +70,7 @@ For now, only the Mocha "spec" reporter is supported, and you will see output si
   1 passing (24ms)
 ```
 
-An exit code of 0 indicates that all tests passes. In general, the exit code indicates the number of failed tests.
+An exit code of 0 indicates that all tests passes. In general, the exit code indicates the number of failed tests, which can be used in CI pipelines.
 
 ## See also
 
