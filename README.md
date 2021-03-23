@@ -1,5 +1,7 @@
 # mocha-vite-puppeteer
 
+[![Build Status](https://api.travis-ci.com/larsthorup/mocha-vite-puppeteer.svg)](https://travis-ci.com/github/larsthorup/mocha-vite-puppeteer)
+
 Run your [Mocha](https://mochajs.org/) front-end tests with the [Vite](https://vitejs.dev/) bundler and the [Puppeteer](https://pptr.dev/) browser launcher.
 
 "mocha-vite-puppeteer" can be used with any existing Vite project and is not specific to Vue, React or any other front-end library.
@@ -56,7 +58,7 @@ Then run your tests, bundled with Vite, in Puppeteer with:
 $ npx mocha-vite-puppeteer
 ```
 
-You can optionally specify a reporter, otherwise "spec" is the default. For now most of the built-in reporters are supported:
+You can optionally specify a reporter, otherwise "spec" is the default.
 
 ```bash
 $ npx mocha-vite-puppeteer --reporter spec
@@ -71,6 +73,14 @@ You will see output similar to:
 ```
 
 An exit code of 0 indicates that all tests passes. In general, the exit code indicates the number of failed tests, which can be used in CI pipelines.
+
+For now the following built-in reporters are supported:
+
+- dot
+- json-stream
+- list
+- spec
+- tap
 
 ## See also
 

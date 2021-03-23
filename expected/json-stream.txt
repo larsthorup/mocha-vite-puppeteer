@@ -1,0 +1,5 @@
+["start",{}]
+["pass",{"title":"passing outer test","fullTitle":"outer suite passing outer test","duration":\d*,"currentRetry":0,"speed":"fast"}]
+["fail",{"title":"failing outer test","fullTitle":"outer suite failing outer test","duration":\d*,"currentRetry":0,"stack":null}]
+["pass",{"title":"passing inner test","fullTitle":"inner suite passing inner test","duration":\d*,"currentRetry":0,"speed":"fast"}]
+["fail",{"title":"failing inner test","fullTitle":"inner suite failing inner test","duration":\d*,"currentRetry":0,"stack":null}]

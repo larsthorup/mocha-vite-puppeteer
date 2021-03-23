@@ -9,6 +9,9 @@
     "puppeteer": "^8.0.0",
     "vite": "^2.1.0"
   },
+  "scripts": {
+    "test": "node mochaProtocol.test.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/larsthorup/mocha-vite-puppeteer.git"

@@ -1,0 +1,4 @@
+ok 1 outer suite passing outer test
+not ok 2 outer suite failing outer test
+ok 3 inner suite passing inner test
+not ok 4 inner suite failing inner test

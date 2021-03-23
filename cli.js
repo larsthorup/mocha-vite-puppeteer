@@ -5,8 +5,8 @@ import * as path from 'path';
 import puppeteer from 'puppeteer'
 import { createServer } from 'vite'
 
-import mochaProtocolRunner from './mochaProtocolRunner.js';
 import { MochaProtocolPlayer } from './mochaProtocolPlayer.js';
+import { MochaProtocolReporter } from './mochaProtocolReporter.js';
 
 // Note: eventually turn into args with default values
 const port = 3001;
@@ -19,16 +19,18 @@ const mochaProtocolPrefix = 'mocha$protocol:';
 // ----
 
 // Note: https://mochajs.org/#running-mocha-in-the-browser
-const mochaAbsolutePath = module.createRequire(import.meta.url).resolve('mocha/mocha.js');
+const require = module.createRequire(import.meta.url);
+const mochaAbsolutePath = require.resolve('mocha/mocha.js');
 const server = await createServer({
   resolve: {
     alias: {
-      'mocha': mochaAbsolutePath
+      'mocha': mochaAbsolutePath,
     }
   },
   server: {
     port: port,
   },
+  clearScreen: false,
 }, false);
 await server.listen();
 
@@ -66,8 +68,21 @@ try {
     throw err;
   });
   await page.goto(address, { waitUntil: 'domcontentloaded' });
-  const failureCount = await page.evaluate(mochaProtocolRunner, { prefix: mochaProtocolPrefix });
-  process.exit(failureCount);
+  const failureCount = await page.evaluate(async ({ prefix, reporterBody }) => {
+    const MochaProtocolReporter = new Function('runner', 'options', reporterBody.substr(reporterBody.indexOf('{')));
+    mocha.reporter(MochaProtocolReporter, { prefix, log: console.log });
+    return new Promise((resolve) => {
+      mocha.run(resolve);
+    });
+  }, {
+    prefix: mochaProtocolPrefix,
+    reporterBody: MochaProtocolReporter.toString()
+  });
+  if (debug) {
+    await new Promise(() => { }); // Note: forever
+  } else {
+    process.exit(failureCount);
+  }
 } finally {
   await browser.close();
   if (!debug) {

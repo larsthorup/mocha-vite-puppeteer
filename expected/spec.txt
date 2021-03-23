@@ -1,0 +1,9 @@
+
+[0m[0m
+[0m  outer suite[0m
+  [32m  √[0m[90m passing outer test[0m
+  [31m  1) failing outer test[0m
+[0m    inner suite[0m
+    [32m  √[0m[90m passing inner test[0m
+    [31m  2) failing inner test[0m
+
