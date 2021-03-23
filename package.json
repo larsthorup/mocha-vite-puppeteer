@@ -1,6 +1,6 @@
 {
   "name": "mocha-vite-puppeteer",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "type": "module",
   "description": "Run your Mocha tests with Vite bundler and Puppeteer",
   "bin": "cli.js",

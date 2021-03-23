@@ -1,4 +1,4 @@
-#!/usr/bin / env node
+#!/usr/bin/env node
 import * as module from 'module';
 import * as path from 'path';
 
