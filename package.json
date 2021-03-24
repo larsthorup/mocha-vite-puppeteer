@@ -1,6 +1,6 @@
 {
   "name": "mocha-vite-puppeteer",
-  "version": "1.1.2",
+  "version": "1.2.1",
   "type": "module",
   "description": "Run your Mocha tests with Vite bundler and Puppeteer",
   "bin": "cli.js",
@@ -12,7 +12,7 @@
   "scripts": {
     "prepare": "cd test/app && npm install",
     "test": "npm run test:unit && npm run test:e2e",
-    "test:unit": "cd test && node ./mochaProtocol.test.js",
+    "test:unit": "cd test/unit && npm test",
     "test:e2e": "cd test/app && npm test"
   },
   "repository": {

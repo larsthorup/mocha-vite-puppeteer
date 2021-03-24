@@ -18,6 +18,7 @@ export function MochaProtocolReporter(runner, options) {
   } = runner.constructor.constants;
   runner
     .once(EVENT_RUN_BEGIN, () => { this.send(EVENT_RUN_BEGIN, []); })
+    .once(EVENT_RUN_END, () => { this.send(EVENT_RUN_END, []); })
     .on(EVENT_SUITE_BEGIN, (suite) => { this.send(EVENT_SUITE_BEGIN, [suite]); })
     .on(EVENT_SUITE_END, (suite) => { this.send(EVENT_SUITE_END, [suite]); })
     .on(EVENT_TEST_BEGIN, (test) => { this.send(EVENT_TEST_BEGIN, [test]); })

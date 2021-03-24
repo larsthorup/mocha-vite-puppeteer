@@ -1,5 +1,5 @@
 {
-  "name": "@vite-sandbox/app",
+  "name": "@mocha-vite-puppeteer/test-app",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",

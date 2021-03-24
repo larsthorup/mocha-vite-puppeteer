@@ -82,6 +82,10 @@ For now the following built-in reporters are supported:
 - spec
 - tap
 
+And also the following custom reporters are supported:
+
+- [mocha-junit-reporter](https://www.npmjs.com/package/mocha-junit-reporter)
+
 ## See also
 
 - Sample project: [larsthorup/vite-sandbox](https://github.com/larsthorup/vite-sandbox).

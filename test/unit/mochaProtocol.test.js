@@ -5,30 +5,34 @@ import * as module from 'module';
 import Mocha from 'mocha';
 
 
-import { MochaProtocolPlayer } from '../mochaProtocolPlayer.js';
-import { MochaProtocolReporter } from '../mochaProtocolReporter.js';
+import { MochaProtocolPlayer } from '../../mochaProtocolPlayer.js';
+import { MochaProtocolReporter } from '../../mochaProtocolReporter.js';
 
 const encoding = 'utf-8';
 const require = module.createRequire(import.meta.url);
 
+let failures = 0;
 const reporterList = [
-  'dot',
-  'json-stream',
-  'list',
-  'spec',
-  'tap',
+  { reporter: 'dot' },
+  { reporter: 'json-stream' },
+  { reporter: 'list' },
+  { reporter: 'mocha-junit-reporter', reporterOptions: { mochaFile: './output/mocha-junit-reporter.txt' }, ignoreStdout: true },
+  { reporter: 'spec' },
+  { reporter: 'tap' },
 ];
-for (const reporter of reporterList) {
+for (const { reporter, reporterOptions, ignoreStdout } of reporterList) {
   fs.mkdirSync('./output', { recursive: true });
   const mocha = new Mocha({ ui: 'bdd' });
   mocha.addFile(require.resolve('./sample-test.cjs'));
   const actualPath = `output/${reporter}.txt`;
   const expectedPath = `expected/${reporter}.txt`;
-  var actualStream = fs.createWriteStream(actualPath, { encoding });
   const processStdoutWrite = process.stdout.write;
-  process.stdout.write = actualStream.write.bind(actualStream);
+  if (!ignoreStdout) {
+    const actualStream = fs.createWriteStream(actualPath, { encoding });
+    process.stdout.write = actualStream.write.bind(actualStream);
+  }
   try {
-    const mochaProtocolPlayer = new MochaProtocolPlayer(reporter);
+    const mochaProtocolPlayer = new MochaProtocolPlayer(reporter, { reporterOptions });
     const log = mochaProtocolPlayer.play.bind(mochaProtocolPlayer);
     mocha.reporter(MochaProtocolReporter, { prefix: '', log });
     await new Promise((resolve) => {
@@ -36,7 +40,9 @@ for (const reporter of reporterList) {
     });
     mocha.unloadFiles();
   } finally {
-    process.stdout.write = processStdoutWrite;
+    if (!ignoreStdout) {
+      process.stdout.write = processStdoutWrite;
+    }
   }
   const actual = fs.readFileSync(actualPath, { encoding });
   const expected = fs.readFileSync(expectedPath, { encoding });
@@ -47,7 +53,7 @@ for (const reporter of reporterList) {
     .replaceAll(')', '\\)')
     ;
   if (!actual.match(expectedRegex)) {
-    const msg = `X ${reporter}: ${actualPath} does not match ${expectedPath}`;
+    ++failures;
     console.log('--------');
     console.log('actual:');
     console.log(actual);
@@ -55,8 +61,9 @@ for (const reporter of reporterList) {
     console.log('expected:');
     console.log(expected);
     console.log('--------');
-    assert.fail(msg);
+    console.log(`X ${reporter}: ${actualPath} does not match ${expectedPath}`);
   } else {
     console.log(`√ ${reporter}`);
   }
 }
+process.exit(failures);

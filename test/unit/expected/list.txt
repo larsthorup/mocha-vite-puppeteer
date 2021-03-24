@@ -1,0 +1,5 @@
+
+[90m    outer suite passing outer test: [0m[2K[0G[32m  .[0m[90m outer suite passing outer test: [0m[90m\d+ms[0m
+[90m    outer suite failing outer test: [0m[2K[0G[31m  1) outer suite failing outer test[0m
+[90m    inner suite passing inner test: [0m[2K[0G[32m  .[0m[90m inner suite passing inner test: [0m[90m\d+ms[0m
+[90m    inner suite failing inner test: [0m[2K[0G[31m  2) inner suite failing inner test[0m

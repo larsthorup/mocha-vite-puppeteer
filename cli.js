@@ -13,6 +13,7 @@ const port = 3001;
 const root = '.'; // Note: relative to cwd
 const entry = 'test.html'; // Note: relative to root
 const reporter = (process.argv[2] === '--reporter' && process.argv[3]) || 'spec';
+const reporterOptions = undefined;
 const verbose = false;
 const debug = false;
 const mochaProtocolPrefix = 'mocha$protocol:';
@@ -34,7 +35,7 @@ const server = await createServer({
 }, false);
 await server.listen();
 
-const mochaProtocolPlayer = new MochaProtocolPlayer(reporter);
+const mochaProtocolPlayer = new MochaProtocolPlayer(reporter, { reporterOptions });
 
 const browser = await puppeteer.launch();
 const page = await browser.newPage();
