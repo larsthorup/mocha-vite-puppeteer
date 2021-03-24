@@ -10,10 +10,12 @@
     "vite": "^2.1.0"
   },
   "scripts": {
-    "prepare": "cd test/app && npm install",
-    "test": "npm run test:unit && npm run test:e2e",
-    "test:unit": "cd test/unit && npm test",
-    "test:e2e": "cd test/app && npm test"
+    "prepare": "npm run prepare:app && npm run prepare:unit",
+    "prepare:app": "cd test/app && npm install",
+    "prepare:unit": "cd test/unit && npm install",
+    "test": "npm run test:unit && npm run test:app",
+    "test:app": "cd test/app && npm test",
+    "test:unit": "cd test/unit && npm test"
   },
   "repository": {
     "type": "git",
