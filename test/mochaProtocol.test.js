@@ -5,8 +5,8 @@ import * as module from 'module';
 import Mocha from 'mocha';
 
 
-import { MochaProtocolPlayer } from './mochaProtocolPlayer.js';
-import { MochaProtocolReporter } from './mochaProtocolReporter.js';
+import { MochaProtocolPlayer } from '../mochaProtocolPlayer.js';
+import { MochaProtocolReporter } from '../mochaProtocolReporter.js';
 
 const encoding = 'utf-8';
 const require = module.createRequire(import.meta.url);
