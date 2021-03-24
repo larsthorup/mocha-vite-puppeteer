@@ -10,7 +10,8 @@
     "vite": "^2.1.0"
   },
   "scripts": {
-    "test": "node mochaProtocol.test.js"
+    "postinstall": "cd e2e-test/app && npm install",
+    "test": "node mochaProtocol.test.js && cd e2e-test/app && npm test"
   },
   "repository": {
     "type": "git",

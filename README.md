@@ -88,3 +88,11 @@ For now the following built-in reporters are supported:
 - Blog post: [Front-end testing with Mocha, Vite and Puppeteer](https://www.fullstackagile.eu/2021/03/21/mocha-vite-puppeteer/)
 
 ![](https://www.fullstackagile.eu/2021/03/21/mocha-vite-puppeteer/mocha-vite-puppeteer-diagram.png)
+
+## Develop
+
+```bash
+npm test
+```
+
+Contributions welcome!
