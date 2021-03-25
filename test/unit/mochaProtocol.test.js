@@ -29,7 +29,7 @@ const reporterList = [
   { reporter: 'dot' },
   { reporter: 'json-stream' },
   { reporter: 'list' },
-  // { reporter: 'mocha-junit-reporter', reporterOptions: { mochaFile: './output/mocha-junit-reporter.txt' }, ignoreStdout: true },
+  { reporter: 'mocha-junit-reporter', reporterOptions: { mochaFile: './output/mocha-junit-reporter.txt' }, ignoreStdout: true },
   { reporter: 'spec' },
   { reporter: 'tap' },
 ];

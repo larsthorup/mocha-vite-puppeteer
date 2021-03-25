@@ -36,13 +36,26 @@ export function MochaProtocolReporter(runner, options) {
         };
         switch (constructorName) {
           case 'Suite': {
-            const { title, parent, suites } = obj;
-            // Note: either re-construct parent from suites or reconstruct suites from parent or use "root" to cancel recursion
-            return { ...commonProps, title, suites: suites.map(dehydrate) };
+            const { title, parent, suites, tests } = obj;
+            // Note: avoid recursion to ensure serialization of dehydrated data
+            const testsWithoutParent = tests.map(({ parent, ...testWithoutParent }) => testWithoutParent);
+            return {
+              ...commonProps,
+              title,
+              suites: suites.map(dehydrate),
+              tests: testsWithoutParent.map(dehydrate),
+            };
           }
           case 'Test': {
             const { type, title, pending, parent, duration } = obj;
-            return { ...commonProps, type, title, pending, parent: dehydrate(parent), duration };
+            return {
+              ...commonProps,
+              type,
+              title,
+              pending,
+              parent: dehydrate(parent),
+              duration
+            };
           }
           default:
             return { ...commonProps };

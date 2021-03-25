@@ -1,11 +1,20 @@
 <\?xml version="1.0" encoding="UTF-8"\?>
-<testsuites name="Mocha Tests" time="\d+.\d+" tests="0" failures="2">
-  <testsuite name="outer suite" timestamp="\d+-\d+-\d+T\d+:\d+:\d+" tests="0" time="\d+\.\d+" failures="2">
+<testsuites name="Mocha Tests" time="\d+\.\d+" tests="6" failures="3">
+  <testsuite name="standalone suite" timestamp="\d+-\d+-\d+T\d+:\d+:\d+" tests="2" time="\d+\.\d+" failures="1">
+    <testcase name="standalone suite passing standalone test" time="\d+.\d+" classname="passing standalone test">
+    </testcase>
+    <testcase name="standalone suite failing standalone test" time="\d+.\d+" classname="failing standalone test">
+      <failure message="" type=""/>
+    </testcase>
+  </testsuite>
+  <testsuite name="outer suite" timestamp="\d+-\d+-\d+T\d+:\d+:\d+" tests="2" time="\d+\.\d+" failures="1">
     <testcase name="outer suite passing outer test" time="\d+\.\d+" classname="passing outer test">
     </testcase>
     <testcase name="outer suite failing outer test" time="\d+\.\d+" classname="failing outer test">
       <failure message="" type=""/>
     </testcase>
+  </testsuite>
+  <testsuite name="inner suite" timestamp="\d+-\d+-\d+T\d+:\d+:\d+" tests="2" time="\d+\.\d+" failures="1">
     <testcase name="inner suite passing inner test" time="\d+\.\d+" classname="passing inner test">
     </testcase>
     <testcase name="inner suite failing inner test" time="\d+\.\d+" classname="failing inner test">

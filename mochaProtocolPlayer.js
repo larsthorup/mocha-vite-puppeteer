@@ -8,6 +8,14 @@ import * as mocha from 'mocha';
 const hydrate = (objDehydated) => {
   const { constructorName, ...props } = objDehydated;
   switch (constructorName) {
+    case 'Suite': {
+      const { title } = props;
+      const suite = new mocha.Suite(title);
+      Object.assign(suite, {
+        ...props
+      });
+      return suite;
+    }
     case 'Test': {
       const { title, parent } = props;
       const fn = () => { assert.fail('Unexpected run of test function during hydrate') };
@@ -17,14 +25,6 @@ const hydrate = (objDehydated) => {
         parent: hydrate(parent),
       });
       return test;
-    }
-    case 'Suite': {
-      const { title } = props;
-      const suite = new mocha.Suite(title);
-      Object.assign(suite, {
-        ...props
-      });
-      return suite;
     }
     default:
       return props;
