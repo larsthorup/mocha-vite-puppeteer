@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import * as fs from 'fs';
 import * as module from 'module';
 import * as path from 'path';
 
@@ -13,7 +14,7 @@ const port = 3001;
 const root = '.'; // Note: relative to cwd
 const entry = 'test.html'; // Note: relative to root
 const reporter = (process.argv[2] === '--reporter' && process.argv[3]) || 'spec';
-const reporterOptions = undefined;
+const reporterOptions = process.argv[4] === '--reporter-options' ? JSON.parse(fs.readFileSync(process.argv[5], 'utf-8')) : undefined;
 const verbose = false;
 const debug = false;
 const mochaProtocolPrefix = 'mocha$protocol:';

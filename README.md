@@ -87,6 +87,12 @@ And also the following custom reporters are supported:
 
 - [mocha-junit-reporter](https://www.npmjs.com/package/mocha-junit-reporter)
 
+You can optionally specify a JSON file with reporter options:
+
+```bash
+$ npx mocha-vite-puppeteer --reporter mocha-junit-reporter --reporter-options mocha-junit-reporter.config.json
+```
+
 ## See also
 
 - Sample project: [larsthorup/vite-sandbox](https://github.com/larsthorup/vite-sandbox).
