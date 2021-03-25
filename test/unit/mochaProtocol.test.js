@@ -62,7 +62,7 @@ for (const { reporter, reporterOptions, ignoreStdout } of reporterList) {
         resolve(failures);
       });
     });
-    await new Promise((resolve) => setTimeout(resolve, 100)); // Note: wait for spec reporter to complete??
+    await new Promise((resolve) => setTimeout(resolve, 500)); // ToDo: how to better wait for reporter to complete??
     mocha.unloadFiles();
   } finally {
     if (!ignoreStdout) {

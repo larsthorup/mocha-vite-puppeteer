@@ -1,8 +1,28 @@
 
-[90m    standalone suite passing standalone test: [0m[2K[0G[32m  √[0m[90m standalone suite passing standalone test: [0m[90m\d+ms[0m
+[90m    standalone suite passing standalone test: [0m[2K[0G[32m  .[0m[90m standalone suite passing standalone test: [0m[90m\d+ms[0m
 [90m    standalone suite failing standalone test: [0m[2K[0G[31m  1) standalone suite failing standalone test[0m
-[90m    outer suite passing outer test: [0m[2K[0G[32m  √[0m[90m outer suite passing outer test: [0m[90m\d+ms[0m
+[90m    outer suite passing outer test: [0m[2K[0G[32m  .[0m[90m outer suite passing outer test: [0m[90m\d+ms[0m
 [90m    outer suite failing outer test: [0m[2K[0G[31m  2) outer suite failing outer test[0m
-[90m    inner suite passing inner test: [0m[2K[0G[32m  √[0m[90m inner suite passing inner test: [0m[90m\d+ms[0m
+[90m    inner suite passing inner test: [0m[2K[0G[32m  .[0m[90m inner suite passing inner test: [0m[90m\d+ms[0m
 [90m    inner suite failing inner test: [0m[2K[0G[31m  3) inner suite failing inner test[0m
+
+[92m [0m[32m 3 passing[0m[90m (\d+ms)[0m
+[31m  3 failing[0m
+
+[0m  1) standalone suite
+       failing standalone test:
+[0m[31m     [0m[90m
+  
+[0m
+[0m  2) outer suite
+       failing outer test:
+[0m[31m     [0m[90m
+  
+[0m
+[0m  3) inner suite
+       failing inner test:
+[0m[31m     [0m[90m
+  
+[0m
+
 
