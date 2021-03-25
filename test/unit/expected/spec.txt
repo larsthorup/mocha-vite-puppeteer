@@ -1,34 +1,34 @@
 
-[0m[0m
-[0m  standalone suite[0m
-  [32m  .[0m[90m passing standalone test[0m
-  [31m  1) failing standalone test[0m
 
-[0m  outer suite[0m
-  [32m  .[0m[90m passing outer test[0m
-  [31m  2) failing outer test[0m
-[0m    inner suite[0m
-    [32m  .[0m[90m passing inner test[0m
-    [31m  3) failing inner test[0m
+  standalone suite
+    . passing standalone test
+    1) failing standalone test
+
+  outer suite
+    . passing outer test
+    2) failing outer test
+    inner suite
+      . passing inner test
+      3) failing inner test
 
 
-[92m [0m[32m 3 passing[0m[90m (\d+ms)[0m
-[31m  3 failing[0m
+  3 passing (\d+ms)
+  3 failing
 
-[0m  1) standalone suite
+  1) standalone suite
        failing standalone test:
-[0m[31m     [0m[90m
+     
   
-[0m
-[0m  2) outer suite
+
+  2) outer suite
        failing outer test:
-[0m[31m     [0m[90m
+     
   
-[0m
-[0m  3) inner suite
+
+  3) inner suite
        failing inner test:
-[0m[31m     [0m[90m
+     
   
-[0m
+
 
 

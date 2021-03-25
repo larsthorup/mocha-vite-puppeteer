@@ -1,3 +1,24 @@
 
 
-  [90m.[0m[31m![0m[90m.[0m[31m![0m
+  .!.!.!
+
+  3 passing (\d+ms)
+  3 failing
+
+  1) standalone suite
+       failing standalone test:
+     
+  
+
+  2) outer suite
+       failing outer test:
+     
+  
+
+  3) inner suite
+       failing inner test:
+     
+  
+
+
+

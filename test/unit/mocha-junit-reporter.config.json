@@ -1,0 +1,3 @@
+{
+  "mochaFile": "./output/mocha-junit-reporter.txt"
+}
