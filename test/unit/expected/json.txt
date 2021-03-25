@@ -1,0 +1,106 @@
+{
+  "stats": {
+    "suites": 3,
+    "tests": 6,
+    "passes": 3,
+    "pending": 0,
+    "failures": 3,
+    "start": "\d+-\d+-\d+T\d+:\d+:\d+\.\d+Z",
+    "end": "\d+-\d+-\d+T\d+:\d+:\d+.\d+Z",
+    "duration": \d+
+  },
+  "tests": [
+    {
+      "title": "passing standalone test",
+      "fullTitle": "standalone suite passing standalone test",
+      "duration": \d+,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "failing standalone test",
+      "fullTitle": "standalone suite failing standalone test",
+      "duration": \d+,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "passing outer test",
+      "fullTitle": "outer suite passing outer test",
+      "duration": \d+,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "failing outer test",
+      "fullTitle": "outer suite failing outer test",
+      "duration": \d+,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "passing inner test",
+      "fullTitle": "inner suite passing inner test",
+      "duration": \d+,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "failing inner test",
+      "fullTitle": "inner suite failing inner test",
+      "duration": \d+,
+      "currentRetry": 0,
+      "err": {}
+    }
+  ],
+  "pending": [],
+  "failures": [
+    {
+      "title": "failing standalone test",
+      "fullTitle": "standalone suite failing standalone test",
+      "duration": \d+,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "failing outer test",
+      "fullTitle": "outer suite failing outer test",
+      "duration": \d+,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "failing inner test",
+      "fullTitle": "inner suite failing inner test",
+      "duration": \d+,
+      "currentRetry": 0,
+      "err": {}
+    }
+  ],
+  "passes": [
+    {
+      "title": "passing standalone test",
+      "fullTitle": "standalone suite passing standalone test",
+      "duration": \d+,
+      "currentRetry": 0,
+      "speed": "fast",
+      "err": {}
+    },
+    {
+      "title": "passing outer test",
+      "fullTitle": "outer suite passing outer test",
+      "duration": \d+,
+      "currentRetry": 0,
+      "speed": "fast",
+      "err": {}
+    },
+    {
+      "title": "passing inner test",
+      "fullTitle": "inner suite passing inner test",
+      "duration": \d+,
+      "currentRetry": 0,
+      "speed": "fast",
+      "err": {}
+    }
+  ]
+}

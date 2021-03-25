@@ -77,6 +77,7 @@ An exit code of 0 indicates that all tests passes. In general, the exit code ind
 For now the following built-in reporters are supported:
 
 - dot
+- json
 - json-stream
 - list
 - spec

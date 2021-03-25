@@ -26,12 +26,15 @@ process.on('uncaughtException', (err, origin) => {
 let failureCount = 0;
 let errorCount = 0;
 const reporterList = [
+  // { reporter: 'doc' }, // Note: looks like it tries to run the test again, gets "Unexpected run of test function during hydrate"
   { reporter: 'dot' },
+  { reporter: 'json' },
   { reporter: 'json-stream' },
   { reporter: 'list' },
-  { reporter: 'mocha-junit-reporter', reporterOptions: { mochaFile: './output/mocha-junit-reporter.txt' }, ignoreStdout: true },
+  // { reporter: 'markdown' }, // Note: mochaProtocolPlayer does not yet set "runner.suite" on every event
   { reporter: 'spec' },
   { reporter: 'tap' },
+  { reporter: 'mocha-junit-reporter', reporterOptions: { mochaFile: './output/mocha-junit-reporter.txt' }, ignoreStdout: true },
 ];
 for (const { reporter, reporterOptions, ignoreStdout } of reporterList) {
   fs.mkdirSync('./output', { recursive: true });
