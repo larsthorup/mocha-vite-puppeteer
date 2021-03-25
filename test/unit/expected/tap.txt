@@ -1,4 +1,7 @@
-ok 1 outer suite passing outer test
-not ok 2 outer suite failing outer test
-ok 3 inner suite passing inner test
-not ok 4 inner suite failing inner test
+ok 1 standalone suite passing standalone test
+not ok 2 standalone suite failing standalone test
+ok 3 outer suite passing outer test
+not ok 4 outer suite failing outer test
+ok 5 inner suite passing inner test
+not ok 6 inner suite failing inner test
+# tests 6

@@ -79,10 +79,14 @@ try {
     prefix: mochaProtocolPrefix,
     reporterBody: MochaProtocolReporter.toString()
   });
+  const errorCount = mochaProtocolPlayer.errors.length;
+  if (errorCount > 0) {
+    mochaProtocolPlayer.errors.forEach(console.error);
+  }
   if (debug) {
     await new Promise(() => { }); // Note: forever
   } else {
-    process.exit(failureCount);
+    process.exit(failureCount + errorCount);
   }
 } finally {
   await browser.close();

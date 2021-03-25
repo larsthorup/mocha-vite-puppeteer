@@ -51,11 +51,16 @@ export function MochaProtocolReporter(runner, options) {
         return obj;
       }
     }
-    const serializedEvent = JSON.stringify({
-      event,
-      args: args.map(dehydrate),
-      stats: this.runner.stats,
-    });
-    log(`${this.prefix}${serializedEvent}`)
+    try {
+      const serializedEvent = JSON.stringify({
+        event,
+        args: args.map(dehydrate),
+        stats: this.runner.stats,
+      });
+      log(`${this.prefix}${serializedEvent}`);
+    } catch (error) {
+      // Note: it seems like Mocha does not handle exceptions from event handlers well
+      console.error(`mochaProtocolReporter: failed to send mocha "${event}" event`, error);
+    }
   };
 }

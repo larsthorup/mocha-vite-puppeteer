@@ -51,12 +51,17 @@ export class MochaProtocolPlayer {
     this.runner = new MochaRunnerShim();
     const Reporter = getReporter(reporter);
     this.reporter = new Reporter(this.runner, options);
+    this.errors = [];
   }
 
   play(serializedEvent) {
-    const { event, args, stats } = JSON.parse(serializedEvent);
-    this.runner.stats = stats;
-    this.reporter.stats = stats;
-    this.runner.emit.apply(this.runner, [event].concat(args.map(hydrate)));
+    try {
+      const { event, args, stats } = JSON.parse(serializedEvent);
+      this.runner.stats = stats;
+      this.reporter.stats = stats;
+      this.runner.emit.apply(this.runner, [event].concat(args.map(hydrate)));
+    } catch (error) {
+      this.errors.push(error);
+    }
   }
 }
