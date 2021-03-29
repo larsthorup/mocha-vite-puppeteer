@@ -28,32 +28,46 @@ export function MochaProtocolReporter(runner, options) {
     .on(EVENT_TEST_PENDING, (test) => { this.send(EVENT_TEST_PENDING, [test]); })
     ;
   this.send = function (event, args) {
-    const dehydrate = (obj) => {
+    const dehydrate = (withParent) => (obj) => {
       if (obj) {
         const constructorName = obj.constructor.name;
         const commonProps = {
           constructorName,
         };
+        if (obj instanceof Error) {
+          const { message, stack } = obj;
+          return {
+            constructorName: 'Error',
+            commonProps,
+            message,
+            stack,
+          };
+        }
         switch (constructorName) {
           case 'Suite': {
-            const { title, parent, suites, tests } = obj;
-            // Note: avoid recursion to ensure serialization of dehydrated data
-            const testsWithoutParent = tests.map(({ parent, ...testWithoutParent }) => testWithoutParent);
+            const { title, root, suites, tests, _afterAll, _afterEach, _beforeAll, _beforeEach } = obj;
             return {
               ...commonProps,
               title,
-              suites: suites.map(dehydrate),
-              tests: testsWithoutParent.map(dehydrate),
+              root,
+              suites: suites.map(dehydrate(true)),
+              tests: tests.map(dehydrate(false)),
+              _afterAll: _afterAll.map(dehydrate(false)),
+              _afterEach: _afterEach.map(dehydrate(false)),
+              _beforeAll: _beforeAll.map(dehydrate(false)),
+              _beforeEach: _beforeEach.map(dehydrate(false)),
             };
           }
+          case 'Hook':
           case 'Test': {
-            const { type, title, pending, parent, duration } = obj;
+            const { type, title, body, pending, parent, duration } = obj;
             return {
               ...commonProps,
               type,
               title,
+              body,
               pending,
-              parent: dehydrate(parent),
+              ...(withParent && { parent: dehydrate(true)(parent) }),
               duration
             };
           }
@@ -67,8 +81,9 @@ export function MochaProtocolReporter(runner, options) {
     try {
       const serializedEvent = JSON.stringify({
         event,
-        args: args.map(dehydrate),
+        args: args.map(dehydrate(true)),
         stats: this.runner.stats,
+        suite: dehydrate(true)(this.runner.suite),
       });
       log(`${this.prefix}${serializedEvent}`);
     } catch (error) {

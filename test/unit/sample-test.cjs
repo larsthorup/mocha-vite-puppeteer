@@ -1,9 +1,21 @@
+const fail = (msg) => {
+  throw new Error(msg);
+};
+
 describe('standalone suite', () => {
+  before(() => { });
+
+  beforeEach(() => { });
+
+  afterEach(() => { });
+
+  after(() => { });
+
   it('passing standalone test', () => {
   });
 
   it('failing standalone test', () => {
-    assert.fail('standalone fail');
+    fail('standalone fail');
   });
 });
 
@@ -16,11 +28,11 @@ describe('outer suite', () => {
     });
 
     it('failing inner test', () => {
-      assert.fail('inner fail');
+      fail('inner fail');
     });
   });
 
   it('failing outer test', () => {
-    assert.fail('outer fail');
+    fail('outer fail');
   });
 });

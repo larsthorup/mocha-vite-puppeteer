@@ -1,7 +1,22 @@
 ok 1 standalone suite passing standalone test
 not ok 2 standalone suite failing standalone test
+  standalone fail
+  Error: standalone fail
+      at fail (sample-test.cjs:2:9)
+      at Context.<anonymous> (sample-test.cjs:18:5)
 ok 3 outer suite passing outer test
 not ok 4 outer suite failing outer test
+  outer fail
+  Error: outer fail
+      at fail (sample-test.cjs:2:9)
+      at Context.<anonymous> (sample-test.cjs:36:5)
 ok 5 inner suite passing inner test
 not ok 6 inner suite failing inner test
+  inner fail
+  Error: inner fail
+      at fail (sample-test.cjs:2:9)
+      at Context.<anonymous> (sample-test.cjs:31:7)
 # tests 6
+# pass 3
+# fail 3
+1..6

@@ -6,7 +6,7 @@
     "pending": 0,
     "failures": 3,
     "start": "\d+-\d+-\d+T\d+:\d+:\d+\.\d+Z",
-    "end": "\d+-\d+-\d+T\d+:\d+:\d+.\d+Z",
+    "end": "\d+-\d+-\d+T\d+:\d+:\d+\.\d+Z",
     "duration": \d+
   },
   "tests": [
@@ -60,21 +60,39 @@
       "fullTitle": "standalone suite failing standalone test",
       "duration": \d+,
       "currentRetry": 0,
-      "err": {}
+      "err": {
+        "commonProps": {
+          "constructorName": "Error"
+        },
+        "message": "standalone fail",
+        "stack": "Error: standalone fail\n    at fail (sample-test.cjs:2:9)\n    at Context.<anonymous> (sample-test.cjs:18:5)"
+      }
     },
     {
       "title": "failing outer test",
       "fullTitle": "outer suite failing outer test",
       "duration": \d+,
       "currentRetry": 0,
-      "err": {}
+      "err": {
+        "commonProps": {
+          "constructorName": "Error"
+        },
+        "message": "outer fail",
+        "stack": "Error: outer fail\n    at fail (sample-test.cjs:2:9)\n    at Context.<anonymous> (sample-test.cjs:36:5)"
+      }
     },
     {
       "title": "failing inner test",
       "fullTitle": "inner suite failing inner test",
       "duration": \d+,
       "currentRetry": 0,
-      "err": {}
+      "err": {
+        "commonProps": {
+          "constructorName": "Error"
+        },
+        "message": "inner fail",
+        "stack": "Error: inner fail\n    at fail (sample-test.cjs:2:9)\n    at Context.<anonymous> (sample-test.cjs:31:7)"
+      }
     }
   ],
   "passes": [

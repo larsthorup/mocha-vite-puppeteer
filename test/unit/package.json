@@ -3,9 +3,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "test:spec": "node ../mochaProtocolCli.js /r/larsthorup/mocha-vite-puppeteer/test/unit/sample-test.cjs spec",
     "test": "node ./mochaReporter.test.js"
   },
   "dependencies": {
-    "mocha-junit-reporter": "^2.0.0"
+    "mocha-junit-reporter": "^2.0.0",
+    "mochawesome": "^6.2.2"
   }
 }

@@ -13,10 +13,11 @@ const reporterList = [
   { reporter: 'json' },
   { reporter: 'json-stream' },
   // { reporter: 'list' }, // TODO: handle ANSI cursor escape sequences
-  // // { reporter: 'markdown' }, // Note: mochaProtocolPlayer does not yet set "runner.suite" on every event
+  // { reporter: 'markdown' }, // Note: mochaProtocolPlayer does not yet set "runner.suite" before constructing reporter
   { reporter: 'spec' },
   { reporter: 'tap' },
   { reporter: 'mocha-junit-reporter', reporterOptionsFile: 'mocha-junit-reporter.config.json', ignoreStdout: true },
+  // { reporter: 'mochawesome', reporterOptionsFile: 'mochawesome.config.json', ignoreStdout: true }
 ];
 for (const { reporter, reporterOptionsFile, ignoreStdout } of reporterList) {
   fs.mkdirSync('./output', { recursive: true });
@@ -28,7 +29,7 @@ for (const { reporter, reporterOptionsFile, ignoreStdout } of reporterList) {
     const testFilePath = require.resolve('./sample-test.cjs');
     const reporterOptionsPath = reporterOptionsFile && require.resolve(`./${reporterOptionsFile}`) || '';
     const cmd = `node ../mochaProtocolCli.js ${testFilePath} ${reporter} ${reporterOptionsPath}`;
-    const output = cp.execSync(cmd);
+    const output = cp.execSync(cmd).toString('utf-8');
     if (!ignoreStdout) {
       fs.writeFileSync(actualPath, output);
     }
@@ -37,8 +38,11 @@ for (const { reporter, reporterOptionsFile, ignoreStdout } of reporterList) {
     const expectedRegex = expected
       .replaceAll('[', '\\[')
       .replaceAll(']', '\\]')
+      .replaceAll('{', '\\{')
+      .replaceAll('}', '\\}')
       .replaceAll('(', '\\(')
       .replaceAll(')', '\\)')
+      .replaceAll('\\n', '\\\\n')
       ;
     if (!actual.match(expectedRegex)) {
       ++failureCount;

@@ -86,6 +86,7 @@ For now the following built-in reporters are supported:
 And also the following custom reporters are supported:
 
 - [mocha-junit-reporter](https://www.npmjs.com/package/mocha-junit-reporter)
+- [mochawesome](https://www.npmjs.com/package/mochawesome)
 
 You can optionally specify a JSON file with reporter options:
 

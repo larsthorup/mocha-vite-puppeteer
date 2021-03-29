@@ -1,24 +1,32 @@
 <\?xml version="1.0" encoding="UTF-8"\?>
 <testsuites name="Mocha Tests" time="\d+\.\d+" tests="6" failures="3">
+  <testsuite name="Root Suite" timestamp="\d+-\d+-\d+T\d+:\d+:\d+" tests="0" time="\d+\.\d+" failures="0">
+  </testsuite>
   <testsuite name="standalone suite" timestamp="\d+-\d+-\d+T\d+:\d+:\d+" tests="2" time="\d+\.\d+" failures="1">
     <testcase name="standalone suite passing standalone test" time="\d+.\d+" classname="passing standalone test">
     </testcase>
     <testcase name="standalone suite failing standalone test" time="\d+.\d+" classname="failing standalone test">
-      <failure message="" type=""/>
+      <failure message="standalone fail" type=""><![CDATA[Error: standalone fail
+    at fail (sample-test.cjs:2:9)
+    at Context.<anonymous> (sample-test.cjs:18:5)]]></failure>
     </testcase>
   </testsuite>
   <testsuite name="outer suite" timestamp="\d+-\d+-\d+T\d+:\d+:\d+" tests="2" time="\d+\.\d+" failures="1">
     <testcase name="outer suite passing outer test" time="\d+\.\d+" classname="passing outer test">
     </testcase>
     <testcase name="outer suite failing outer test" time="\d+\.\d+" classname="failing outer test">
-      <failure message="" type=""/>
+      <failure message="outer fail" type=""><![CDATA[Error: outer fail
+    at fail (sample-test.cjs:2:9)
+    at Context.<anonymous> (sample-test.cjs:36:5)]]></failure>
     </testcase>
   </testsuite>
   <testsuite name="inner suite" timestamp="\d+-\d+-\d+T\d+:\d+:\d+" tests="2" time="\d+\.\d+" failures="1">
     <testcase name="inner suite passing inner test" time="\d+\.\d+" classname="passing inner test">
     </testcase>
     <testcase name="inner suite failing inner test" time="\d+\.\d+" classname="failing inner test">
-      <failure message="" type=""/>
+      <failure message="inner fail" type=""><![CDATA[Error: inner fail
+    at fail (sample-test.cjs:2:9)
+    at Context.<anonymous> (sample-test.cjs:31:7)]]></failure>
     </testcase>
   </testsuite>
 </testsuites>

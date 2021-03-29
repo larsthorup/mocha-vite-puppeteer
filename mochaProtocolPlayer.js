@@ -17,7 +17,7 @@ const hydrate = (objDehydated) => {
       return suite;
     }
     case 'Test': {
-      const { title, parent } = props;
+      const { title, body, parent } = props;
       const fn = () => { assert.fail('Unexpected run of test function during hydrate') };
       const test = new mocha.Test(title, fn);
       Object.assign(test, {
@@ -56,9 +56,12 @@ export class MochaProtocolPlayer {
 
   play(serializedEvent) {
     try {
-      const { event, args, stats } = JSON.parse(serializedEvent);
+      const { event, args, stats, suite } = JSON.parse(serializedEvent);
       this.runner.stats = stats;
       this.reporter.stats = stats;
+      if (suite && suite.root) {
+        this.runner.suite = hydrate(suite);
+      }
       this.runner.emit.apply(this.runner, [event].concat(args.map(hydrate)));
     } catch (error) {
       this.errors.push(error);

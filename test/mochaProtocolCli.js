@@ -18,11 +18,16 @@ mocha.reporter(MochaProtocolReporter, {
     log(arg);
   }
 });
-await new Promise((resolve) => {
+const failures = await new Promise((resolve) => {
   mocha.run((failures) => {
     resolve(failures);
   });
 });
+if (mochaProtocolPlayer.reporter.done) {
+  await new Promise((resolve) => {
+    mochaProtocolPlayer.reporter.done(failures, resolve)
+  });
+}
 mocha.unloadFiles();
 const { errors } = mochaProtocolPlayer;
 errors.forEach(console.error);
