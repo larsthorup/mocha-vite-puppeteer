@@ -1,0 +1,3 @@
+# Linux files with shebang should use lf line endings
+# See https://github.com/larsthorup/mocha-vite-puppeteer/issues/5
+"cli.js" text eol=lf

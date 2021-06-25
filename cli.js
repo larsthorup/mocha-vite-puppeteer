@@ -9,7 +9,7 @@ import { createServer } from 'vite'
 import { MochaProtocolPlayer } from './mochaProtocolPlayer.js';
 import { MochaProtocolReporter } from './mochaProtocolReporter.js';
 
-// Note: eventually turn into args with default values
+// Note: eventually turn into args with default values.
 const port = 3001;
 const root = '.'; // Note: relative to cwd
 const entry = 'test.html'; // Note: relative to root
