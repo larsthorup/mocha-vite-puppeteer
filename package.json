@@ -7,6 +7,7 @@
   "dependencies": {
     "mocha": "^8.3.2",
     "puppeteer": "^8.0.0",
+    "stdio": "^2.1.1",
     "vite": "^2.1.0"
   },
   "scripts": {
