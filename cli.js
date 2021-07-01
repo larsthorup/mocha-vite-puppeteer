@@ -19,6 +19,11 @@ const options = getopt({
   debug: { key: 'd', description: 'Enable debug mode. Note: test will run until quit via console (ctrl+c)', default: false, required: false},
 });
 
+if(options.args) {
+  options.reporter = options.args[0];
+  options.reporterOptions = options.args[1] || undefined
+}
+
 const optionKeys = Object.keys(options);
 optionKeys.forEach(key => {
   if(options[key] === 'undefined') { options[key] = undefined} //default values only support strings/bool
