@@ -42,6 +42,7 @@ for (const { reporter, reporterOptionsFile, ignoreStdout } of reporterList) {
       .replaceAll('}', '\\}')
       .replaceAll('(', '\\(')
       .replaceAll(')', '\\)')
+      .replaceAll('\r', '')
       .replaceAll('\\n', '\\\\n')
       ;
     if (!actual.match(expectedRegex)) {
