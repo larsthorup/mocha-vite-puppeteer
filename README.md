@@ -1,6 +1,6 @@
 # mocha-vite-puppeteer
 
-[![Build Status](https://api.travis-ci.com/larsthorup/mocha-vite-puppeteer.svg)](https://travis-ci.com/github/larsthorup/mocha-vite-puppeteer)
+[![Build Status](https://github.com/larsthorup/mocha-vite-puppeteer/actions/workflows/ci.yml/badge.svg)](https://github.com/larsthorup/mocha-vite-puppeteer/actions/workflows/ci.yml)
 
 Run your [Mocha](https://mochajs.org/) front-end tests with the [Vite](https://vitejs.dev/) bundler and the [Puppeteer](https://pptr.dev/) browser launcher.
 
