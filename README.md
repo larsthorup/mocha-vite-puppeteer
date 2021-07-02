@@ -58,12 +58,6 @@ Then run your tests, bundled with Vite, in Puppeteer with:
 $ npx mocha-vite-puppeteer
 ```
 
-You can optionally specify a reporter, otherwise "spec" is the default.
-
-```bash
-$ npx mocha-vite-puppeteer --reporter spec
-```
-
 You will see output similar to:
 
 ```text
@@ -92,6 +86,17 @@ You can optionally specify a JSON file with reporter options:
 ```bash
 $ npx mocha-vite-puppeteer --reporter mocha-junit-reporter --reporter-options mocha-junit-reporter.config.json
 ```
+
+## Available Flags
+
+| Flag          | Alias          | Default     | Description | 
+| ----------- | ----------- | ----------- | ----------- |
+| --port       | -p              |  3001        | Sets the port for Mocha-Vite-Puppeteer to run on |
+| --entry      | -e              |  'test.html'| Entry html file that initializes Mocha. Relative to cwd |
+| --reporter | -r              |  'spec'        | Reporter to use for mocha tests |
+| --reporterOptions | -o |  undefined | reporter options file to be passed to reporter |
+| --verbose | -v |  false  | Enables verbose reporting from Mocha-Vite-Puppeteer. Useful for debugging these flags and inputs. |
+| --debug | -d |  false | Sets debug mode for Mocha-Vite-Puppeteer |
 
 ## See also
 

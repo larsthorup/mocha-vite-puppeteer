@@ -20,8 +20,7 @@ const options = getopt({
 });
 
 if(options.args) {
-  options.reporter = options.args[0];
-  options.reporterOptions = options.args[1] || undefined
+  console.warn('Mocha-vite-puppeteer recieved args that don\'t match the supported syntax. Please check the github for syntax help if this was a mistake')
 }
 
 const optionKeys = Object.keys(options);

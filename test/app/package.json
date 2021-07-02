@@ -5,7 +5,8 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "test": "node ../../cli"
+    "test": "node ../../cli",
+    "test-flags": "node ../../cli -e test-flags.html -p 3006"
   },
   "dependencies": {
     "@testing-library/react": "^11.2.5",
