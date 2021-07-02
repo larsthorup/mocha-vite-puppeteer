@@ -36,14 +36,14 @@ for (const { reporter, reporterOptionsFile, ignoreStdout } of reporterList) {
     const actual = fs.readFileSync(actualPath, { encoding });
     const expected = fs.readFileSync(expectedPath, { encoding });
     const expectedRegex = expected
-      .replaceAll('[', '\\[')
-      .replaceAll(']', '\\]')
-      .replaceAll('{', '\\{')
-      .replaceAll('}', '\\}')
-      .replaceAll('(', '\\(')
-      .replaceAll(')', '\\)')
-      .replaceAll('\r', '')
-      .replaceAll('\\n', '\\\\n')
+      .replace(/\[/g, '\\[')
+      .replace(/\]/g, '\\]')
+      .replace(/\{/g, '\\{')
+      .replace(/\}/g, '\\}')
+      .replace(/\(/g, '\\(')
+      .replace(/\)/g, '\\)')
+      .replace(/\r/g, '')
+      .replace(/\\n/g, '\\\\n')
       ;
     if (!actual.match(expectedRegex)) {
       ++failureCount;
