@@ -1,9 +1,11 @@
 {
   "name": "mocha-vite-puppeteer",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "type": "module",
   "description": "Run your Mocha tests with Vite bundler and Puppeteer",
-  "bin": "cli.js",
+  "bin": {
+    "mocha-vite-puppeteer": "cli.js"
+  },
   "dependencies": {
     "mocha": "^8.3.2",
     "puppeteer": "^8.0.0",
