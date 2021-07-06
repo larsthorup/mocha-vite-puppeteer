@@ -2,6 +2,7 @@
 import * as fs from 'fs';
 import * as module from 'module';
 import * as path from 'path';
+import { getopt } from 'stdio';
 
 import puppeteer from 'puppeteer'
 import { createServer } from 'vite'
@@ -9,14 +10,33 @@ import { createServer } from 'vite'
 import { MochaProtocolPlayer } from './mochaProtocolPlayer.js';
 import { MochaProtocolReporter } from './mochaProtocolReporter.js';
 
-// Note: eventually turn into args with default values.
-const port = 3001;
+const options = getopt({
+  port: { key: 'p', description: 'Port for the tests to run on', args: 1, default: '3001', required: false },
+  entry: { key: 'e', description: 'Entry html file that contains Mocha Setup. Relative to CWD', default: 'test.html', args: 1, required: false },
+  reporter: { key: 'r', description: 'Reporter to use. Available: [dot, json, json-stream, list, spec, tap]', default: 'spec', args: 1, required: false },
+  reporterOptions: { key: 'o', description: 'options to pass to the reporter', default: undefined, args: 1, required: false },
+  verbose: { key: 'v', description: 'Verbose Output', default: false, required: false},
+  debug: { key: 'd', description: 'Enable debug mode. Note: test will run until quit via console (ctrl+c)', default: false, required: false},
+});
+
+if(options.args) {
+  console.warn('Mocha-vite-puppeteer recieved args that don\'t match the supported syntax. Please check the github for syntax help if this was a mistake')
+}
+
+const optionKeys = Object.keys(options);
+optionKeys.forEach(key => {
+  if(options[key] === 'undefined') { options[key] = undefined} //default values only support strings/bool
+})
+
+const port = Number.parseInt(options.port);
+if(isNaN(port)) {port = 3001}
+const verbose = options.verbose;
+if(verbose) { console.log('Starting MVP with options: ', JSON.stringify(options)) }
 const root = '.'; // Note: relative to cwd
-const entry = 'test.html'; // Note: relative to root
-const reporter = (process.argv[2] === '--reporter' && process.argv[3]) || 'spec';
-const reporterOptions = process.argv[4] === '--reporter-options' ? JSON.parse(fs.readFileSync(process.argv[5], 'utf-8')) : undefined;
-const verbose = false;
-const debug = false;
+const entry = options.entry; // Note: relative to root
+const reporter = options.reporter;
+const reporterOptions = options.reporterOptions ? JSON.parse(fs.readFileSync(options.reporterOptions, 'utf-8')) : undefined;
+const debug = options.debug;
 const mochaProtocolPrefix = 'mocha$protocol:';
 // ----
 
