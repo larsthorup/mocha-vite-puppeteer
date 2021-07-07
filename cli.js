@@ -17,16 +17,31 @@ const options = getopt({
   reporterOptions: { key: 'o', description: 'options to pass to the reporter', default: undefined, args: 1, required: false },
   verbose: { key: 'v', description: 'Verbose Output', default: false, required: false},
   debug: { key: 'd', description: 'Enable debug mode. Note: test will run until quit via console (ctrl+c)', default: false, required: false},
+  config: { key: 'c', description: 'Relative path to JSON config file. See project description for more details.', args: 1, default: 'undefined', required: false}
 });
 
 if(options.args) {
   console.warn('Mocha-vite-puppeteer recieved args that don\'t match the supported syntax. Please check the github for syntax help if this was a mistake')
-}
+};
+
+const jsonOptions = options.config ? JSON.parse(fs.readFileSync(options.config, 'utf-8')) : undefined;
+if(jsonOptions && jsonOptions.mvp) {
+  Object.keys(jsonOptions.map).forEach(key => {
+    options[key] = jsonOptions.mvp[key];
+  })
+};
 
 const optionKeys = Object.keys(options);
 optionKeys.forEach(key => {
   if(options[key] === 'undefined') { options[key] = undefined} //default values only support strings/bool
-})
+});
+
+if(options.debug) {
+  jsonOptions = jsonOptions || {};
+  jsonOptions.puppeteer = jsonOptions.puppeteer || {};
+  jsonOptions.puppeteer.launchOptions = jsonOptions.puppeteer.launchOptions || {};
+  jsonOptions.puppeteer.launchOptions.headless = false;
+}
 
 const port = Number.parseInt(options.port);
 if(isNaN(port)) {port = 3001}
@@ -58,7 +73,7 @@ await server.listen();
 
 const mochaProtocolPlayer = new MochaProtocolPlayer(reporter, { reporterOptions });
 
-const browser = await puppeteer.launch();
+const browser = await puppeteer.launch(jsonOptions?.puppeteer?.launchOptions);
 const page = await browser.newPage();
 const address = `http://localhost:${port}/${entry}`;
 
