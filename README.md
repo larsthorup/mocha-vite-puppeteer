@@ -103,10 +103,8 @@ $ npx mocha-vite-puppeteer --reporter mocha-junit-reporter --reporter-options mo
   <summary>Advanced Configuration</summary>
 
     {
-      "mvp" : {
-        "port": 3002,
-        ..
-      },
+      "port": 3010,
+      "reporter": "dot",
       "puppeteer": {
         "launchOptions": {
           "headless": false,
@@ -115,9 +113,11 @@ $ npx mocha-vite-puppeteer --reporter mocha-junit-reporter --reporter-options mo
       }
     }
     
-The mvp object accepts any flag above, except config of course.
+The base-level of the object accepts any flag above, except config of course.
 
-The puppeteer currently only accepts the key launchOptions. see the [puppeteer docs on launch options](https://github.com/puppeteer/puppeteer/blob/main/docs/api.md#puppeteerlaunchoptions) for a full list of launch options available.
+Currently supports the key "puppeteer" for additional puppeteer configuration.
+The puppeteer currently only accepts the key launchOptions. 
+see the [puppeteer docs on launch options](https://github.com/puppeteer/puppeteer/blob/main/docs/api.md#puppeteerlaunchoptions) for a full list of launch options available.
 
 </details>
 

@@ -10,7 +10,7 @@ import { createServer } from 'vite'
 import { MochaProtocolPlayer } from './mochaProtocolPlayer.js';
 import { MochaProtocolReporter } from './mochaProtocolReporter.js';
 
-const options = getopt({
+let options = getopt({
   port: { key: 'p', description: 'Port for the tests to run on', args: 1, default: '3001', required: false },
   entry: { key: 'e', description: 'Entry html file that contains Mocha Setup. Relative to CWD', default: 'test.html', args: 1, required: false },
   reporter: { key: 'r', description: 'Reporter to use. Available: [dot, json, json-stream, list, spec, tap]', default: 'spec', args: 1, required: false },
@@ -24,10 +24,10 @@ if(options.args) {
   console.warn('Mocha-vite-puppeteer recieved args that don\'t match the supported syntax. Please check the github for syntax help if this was a mistake')
 };
 
-const jsonOptions = options.config ? JSON.parse(fs.readFileSync(options.config, 'utf-8')) : undefined;
-if(jsonOptions && jsonOptions.mvp) {
-  Object.keys(jsonOptions.map).forEach(key => {
-    options[key] = jsonOptions.mvp[key];
+const jsonOptions = options.config && options.config !== 'undefined' ? JSON.parse(fs.readFileSync(options.config, 'utf-8')) : undefined;
+if(jsonOptions) {
+  Object.keys(jsonOptions).forEach(key => {
+    options[key] = jsonOptions[key];
   })
 };
 
@@ -46,7 +46,7 @@ if(options.debug) {
 const port = Number.parseInt(options.port);
 if(isNaN(port)) {port = 3001}
 const verbose = options.verbose;
-if(verbose) { console.log('Starting MVP with options: ', JSON.stringify(options)) }
+if(verbose) { console.log('Starting mocha-vite-puppeteer with options: ', JSON.stringify(options)) }
 const root = '.'; // Note: relative to cwd
 const entry = options.entry; // Note: relative to root
 const reporter = options.reporter;
