@@ -8,9 +8,9 @@
     "test": "node ../../cli && node ../../cli -e test-flags.html -p 3006"
   },
   "dependencies": {
-    "@testing-library/react": "^11.2.5",
+    "@testing-library/react": "^12.0.0",
     "chai": "^4.3.4",
-    "mocha": "^8.3.2",
+    "mocha": "^9.0.2",
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
   },
