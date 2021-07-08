@@ -37,10 +37,9 @@ optionKeys.forEach(key => {
 });
 
 if(options.debug) {
-  jsonOptions = jsonOptions || {};
-  jsonOptions.puppeteer = jsonOptions.puppeteer || {};
-  jsonOptions.puppeteer.launchOptions = jsonOptions.puppeteer.launchOptions || {};
-  jsonOptions.puppeteer.launchOptions.headless = false;
+  options.puppeteer = options.puppeteer || {};
+  options.puppeteer.launchOptions = options.puppeteer.launchOptions || {};
+  options.puppeteer.launchOptions.headless = false;
 }
 
 const port = Number.parseInt(options.port);
@@ -73,7 +72,7 @@ await server.listen();
 
 const mochaProtocolPlayer = new MochaProtocolPlayer(reporter, { reporterOptions });
 
-const browser = await puppeteer.launch(jsonOptions?.puppeteer?.launchOptions);
+const browser = await puppeteer.launch(options.puppeteer?.launchOptions);
 const page = await browser.newPage();
 const address = `http://localhost:${port}/${entry}`;
 
