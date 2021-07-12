@@ -79,16 +79,22 @@ const address = `http://localhost:${port}/${entry}`;
 
 try {
   // Note: forward console output from the page (from Mocha and tests and code)
-  page.on('console', (msg) => {
+  page.on('console', async (msg) => {
     const { _text } = msg;
     if (_text.startsWith(mochaProtocolPrefix)) {
       mochaProtocolPlayer.play(_text.substr(mochaProtocolPrefix.length));
     } else {
-      console.log.apply(console, msg.args().map((arg) => {
-        // Note: this works only for arguments that are primitive values
-        return arg._remoteObject.value;
-      }));
+      const argsEvaluating = msg.args().map((arg) => {
+        if (['object', 'function'].includes(arg._remoteObject.type)) {
+          return arg.jsonValue();
+        } else {
+          return Promise.resolve(arg._remoteObject.value);
+        }
+      });
+      const argsEvaluated = await Promise.all(argsEvaluating);
+      console.log.apply(console, argsEvaluated);
     }
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   });
   page.on('requestfailed', (request) => {
     throw new Error(request.url() + ' ' + request.failure().errorText);
