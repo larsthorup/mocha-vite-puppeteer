@@ -96,7 +96,30 @@ $ npx mocha-vite-puppeteer --reporter mocha-junit-reporter --reporter-options mo
 | --reporter | -r              |  'spec'        | Reporter to use for mocha tests |
 | --reporterOptions | -o |  undefined | reporter options file to be passed to reporter |
 | --verbose | -v |  false  | Enables verbose reporting from Mocha-Vite-Puppeteer. Useful for debugging these flags and inputs. |
-| --debug | -d |  false | Sets debug mode for Mocha-Vite-Puppeteer |
+| --debug | -d |  false | Sets debug mode for Mocha-Vite-Puppeteer. Automatically disabled puppeteer headless mode. |
+| --config | -c | undefined | Advanced config options. See section below for details |
+
+<details>
+  <summary>Advanced Configuration</summary>
+
+    {
+      "port": 3010,
+      "reporter": "dot",
+      "puppeteer": {
+        "launchOptions": {
+          "headless": false,
+          ...
+        }
+      }
+    }
+    
+The base-level of the object accepts any flag above, except config of course.
+
+Currently supports the key "puppeteer" for additional puppeteer configuration.
+The puppeteer currently only accepts the key launchOptions. 
+see the [puppeteer docs on launch options](https://github.com/puppeteer/puppeteer/blob/main/docs/api.md#puppeteerlaunchoptions) for a full list of launch options available.
+
+</details>
 
 ## See also
 
