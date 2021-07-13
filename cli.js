@@ -105,6 +105,14 @@ try {
     throw err;
   });
   await page.goto(address, { waitUntil: 'domcontentloaded' });
+  if(options.delayStart) {
+    await page.evaluate(() => {
+      console.log('waiting for keypress to continue');
+      return new Promise(resolve => {
+        document.addEventListener('keypress', resolve, {once:true});
+      });
+    })
+  }
   const failureCount = await page.evaluate(async ({ prefix, reporterBody }) => {
     const MochaProtocolReporter = new Function('runner', 'options', reporterBody.substr(reporterBody.indexOf('{')));
     mocha.reporter(MochaProtocolReporter, { prefix, log: console.log });

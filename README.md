@@ -116,8 +116,13 @@ $ npx mocha-vite-puppeteer --reporter mocha-junit-reporter --reporter-options mo
 
 The base-level of the object accepts any flag above, except config of course.
 
-Currently supports the key "puppeteer" for additional puppeteer configuration.
-The puppeteer currently only accepts the key launchOptions.
+Additional root options include:
+| Option Key        | Example Value               | Description                                                                                                                                        |
+| ----------------- | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| delayStart        | true                        | Boolean value, if true will load the test framework and wait for a keypress in the browser before executing tests. Useful for placing breakpoints. |
+| puppeteer         | { "launchOptions": {}}      | Configuration for the puppeteer instance.                                                                                                          |
+
+The puppeteer key currently only accepts an object with the key "launchOptions".
 see the [puppeteer docs on launch options](https://github.com/puppeteer/puppeteer/blob/main/docs/api.md#puppeteerlaunchoptions) for a full list of launch options available.
 
 </details>
