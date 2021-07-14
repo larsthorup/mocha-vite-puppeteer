@@ -59,17 +59,16 @@ try {
     if (_text.startsWith(mochaProtocolPrefix)) {
       mochaProtocolPlayer.play(_text.substr(mochaProtocolPrefix.length));
     } else {
-      const argsEvaluating = msg.args().map((arg) => {
+      const argsResolving = msg.args().map((arg) => {
         if (['object', 'function'].includes(arg._remoteObject.type)) {
           return arg.jsonValue();
         } else {
           return Promise.resolve(arg._remoteObject.value);
         }
       });
-      const argsEvaluated = await Promise.all(argsEvaluating);
-      console.log.apply(console, argsEvaluated);
+      const argsResolved = await Promise.all(argsResolving);
+      console.log.apply(console, argsResolved);
     }
-    await new Promise((resolve) => setTimeout(resolve, 1000));
   });
   page.on('requestfailed', (request) => {
     throw new Error(request.url() + ' ' + request.failure().errorText);
