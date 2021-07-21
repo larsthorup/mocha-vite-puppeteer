@@ -11,5 +11,7 @@ describe('App', () => {
     const countButton = screen.getByText('count is: 0');
     countButton.click();
     screen.getByText('count is: 1');
+    console.log(JSON.stringify({innerText: countButton.innerText})); // passes
+    console.log({innerText: countButton.innerText}); // TODO: make this pass instead
   });
 });
