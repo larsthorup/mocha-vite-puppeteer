@@ -35,12 +35,14 @@ export function MochaProtocolReporter(runner, options) {
           constructorName,
         };
         if (obj instanceof Error) {
-          const { message, stack } = obj;
+          const { message, stack, actual, expected } = obj;
           return {
             constructorName: 'Error',
             commonProps,
             message,
             stack,
+            actual,
+            expected
           };
         }
         switch (constructorName) {
