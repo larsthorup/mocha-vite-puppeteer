@@ -131,6 +131,8 @@ see the [puppeteer docs on launch options](https://github.com/puppeteer/puppetee
 
 ## Develop
 
+Use `bash` or similar (such as Git Bash on Windows).
+
 ```bash
 npm test
 ```
