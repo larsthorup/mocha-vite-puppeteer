@@ -7,21 +7,30 @@
 
   1) standalone suite
        failing standalone test:
-     Error: standalone fail
-      at fail (sample-test.cjs:2:9)
-      at Context.<anonymous> (sample-test.cjs:18:5)
+
+      Error: standalone fail
+      \+ expected - actual
+
+       [
+         1
+      -  2
+      \+  3
+       ]
+      
+      at fail (sample-test.cjs:2:17)
+      at Context.<anonymous> (sample-test.cjs:21:5)
 
   2) outer suite
        failing outer test:
      Error: outer fail
-      at fail (sample-test.cjs:2:9)
-      at Context.<anonymous> (sample-test.cjs:36:5)
+      at fail (sample-test.cjs:2:17)
+      at Context.<anonymous> (sample-test.cjs:39:5)
 
   3) inner suite
        failing inner test:
      Error: inner fail
-      at fail (sample-test.cjs:2:9)
-      at Context.<anonymous> (sample-test.cjs:31:7)
+      at fail (sample-test.cjs:2:17)
+      at Context.<anonymous> (sample-test.cjs:34:7)
 
 
 

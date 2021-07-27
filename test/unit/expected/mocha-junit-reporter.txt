@@ -7,8 +7,8 @@
     </testcase>
     <testcase name="standalone suite failing standalone test" time="\d+.\d+" classname="failing standalone test">
       <failure message="standalone fail" type=""><![CDATA[Error: standalone fail
-    at fail (sample-test.cjs:2:9)
-    at Context.<anonymous> (sample-test.cjs:18:5)]]></failure>
+    at fail (sample-test.cjs:2:17)
+    at Context.<anonymous> (sample-test.cjs:21:5)]]></failure>
     </testcase>
   </testsuite>
   <testsuite name="outer suite" timestamp="\d+-\d+-\d+T\d+:\d+:\d+" tests="2" time="\d+\.\d+" failures="1">
@@ -16,8 +16,8 @@
     </testcase>
     <testcase name="outer suite failing outer test" time="\d+\.\d+" classname="failing outer test">
       <failure message="outer fail" type=""><![CDATA[Error: outer fail
-    at fail (sample-test.cjs:2:9)
-    at Context.<anonymous> (sample-test.cjs:36:5)]]></failure>
+    at fail (sample-test.cjs:2:17)
+    at Context.<anonymous> (sample-test.cjs:39:5)]]></failure>
     </testcase>
   </testsuite>
   <testsuite name="inner suite" timestamp="\d+-\d+-\d+T\d+:\d+:\d+" tests="2" time="\d+\.\d+" failures="1">
@@ -25,8 +25,8 @@
     </testcase>
     <testcase name="inner suite failing inner test" time="\d+\.\d+" classname="failing inner test">
       <failure message="inner fail" type=""><![CDATA[Error: inner fail
-    at fail (sample-test.cjs:2:9)
-    at Context.<anonymous> (sample-test.cjs:31:7)]]></failure>
+    at fail (sample-test.cjs:2:17)
+    at Context.<anonymous> (sample-test.cjs:34:7)]]></failure>
     </testcase>
   </testsuite>
 </testsuites>

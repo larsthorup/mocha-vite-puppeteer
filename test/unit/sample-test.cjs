@@ -1,5 +1,8 @@
-const fail = (msg) => {
-  throw new Error(msg);
+const fail = (msg, actual, expected) => {
+  const error = new Error(msg);
+  error.actual = actual;
+  error.expected = expected;
+  throw error;
 };
 
 describe('standalone suite', () => {
@@ -15,7 +18,7 @@ describe('standalone suite', () => {
   });
 
   it('failing standalone test', () => {
-    fail('standalone fail');
+    fail('standalone fail', [1, 2], [1, 3]);
   });
 });
 

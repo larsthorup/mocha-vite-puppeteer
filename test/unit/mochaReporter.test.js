@@ -22,6 +22,7 @@ const reporterList = [
 for (const { reporter, reporterOptionsFile, ignoreStdout } of reporterList) {
   fs.mkdirSync('./output', { recursive: true });
   const actualPath = `output/${reporter}.txt`;
+  const expectedRegexPath = `output/${reporter}.regex.txt`;
   const expectedPath = `expected/${reporter}.txt`;
   const require = module.createRequire(import.meta.url);
   let errors;
@@ -45,6 +46,7 @@ for (const { reporter, reporterOptionsFile, ignoreStdout } of reporterList) {
       .replace(/\r/g, '')
       .replace(/\\n/g, '\\\\n')
       ;
+    fs.writeFileSync(expectedRegexPath, expectedRegex)
     if (!actual.match(expectedRegex)) {
       ++failureCount;
       console.log('--------');
