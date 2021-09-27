@@ -12,7 +12,7 @@ for (let i = 100; i < 100 + count; ++i) {
   for (let f = 0; f < fileNames.length; ++f) {
     const fileName = fileNames[f];
     const source = sources[f];
-    console.log(fileName, source);
+    // console.log(fileName, source);
     const targetFileName = fileName.replace(/XXX/g, xxx);
     const targetSource = source.replace(/XXX/g, xxx);
     fs.writeFileSync(`${folder}/${targetFileName}`, targetSource);
