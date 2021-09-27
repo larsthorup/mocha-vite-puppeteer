@@ -1,5 +1,5 @@
 *
 !.gitignore
-!ComponentXXX.tsx
-!ComponentXXX.test.tsx
+!ComponentXXX.jsx
+!ComponentXXX.test.jsx
 !generate.mjs
