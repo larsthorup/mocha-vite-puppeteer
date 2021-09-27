@@ -7,17 +7,20 @@
     "mocha-vite-puppeteer": "cli.js"
   },
   "dependencies": {
+    "@testing-library/user-event": "^13.2.1",
     "mocha": "^9.0.2",
     "puppeteer": "^10.1.0",
     "stdio": "^2.1.1",
     "vite": "^2.1.0"
   },
   "scripts": {
-    "prepare": "npm run prepare:app && npm run prepare:unit",
+    "prepare": "npm run prepare:app && npm run prepare:performance && npm run prepare:unit",
     "prepare:app": "cd test/app && npm install",
+    "prepare:performance": "cd test/performance && npm install",
     "prepare:unit": "cd test/unit && npm install",
-    "test": "npm run test:unit && npm run test:app",
+    "test": "npm run test:unit && npm run test:app && npm run test:performance",
     "test:app": "cd test/app && npm test",
+    "test:performance": "cd test/performance && npm test",
     "test:unit": "cd test/unit && npm test"
   },
   "repository": {

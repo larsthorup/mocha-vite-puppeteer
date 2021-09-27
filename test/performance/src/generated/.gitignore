@@ -1,0 +1,5 @@
+*
+!.gitignore
+!ComponentXXX.tsx
+!ComponentXXX.test.tsx
+!generate.mjs
