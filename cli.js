@@ -11,19 +11,21 @@ import { MochaProtocolPlayer } from './mochaProtocolPlayer.js';
 import { MochaProtocolReporter } from './mochaProtocolReporter.js';
 
 let port = Number.parseInt(options.port);
-if(!options.port || isNaN(port)){options.port = 3001; port = 3001};
-if(!options.entry) {options.entry = 'test.html'}
-if(!options.reporter) {options.reporter = 'spec'}
+if (!options.port || isNaN(port)) { options.port = 3001; port = 3001 };
+if (!options.entry) { options.entry = 'test.html' }
+if (!options.reporter) { options.reporter = 'spec' }
 
-if(options.debug) {
+if (options.debug) {
   options.puppeteer = options.puppeteer || {};
   options.puppeteer.launchOptions = options.puppeteer.launchOptions || {};
   options.puppeteer.launchOptions.headless = false;
 }
 const verbose = options.verbose;
-if(verbose) { console.log('Starting mocha-vite-puppeteer with options: ', JSON.stringify(options)) }
+if (verbose) { console.log('Starting mocha-vite-puppeteer with options: ', JSON.stringify(options)) }
 const root = '.'; // Note: relative to cwd
+const barePathEnabled = options.enableBarePath;
 const entry = options.entry; // Note: relative to root
+const entryPath = barePathEnabled ? '/' : `/${entry}`;
 const reporter = options.reporter;
 const reporterOptions = options.reporterOptions ? JSON.parse(fs.readFileSync(options.reporterOptions, 'utf-8')) : undefined;
 const debug = options.debug;
@@ -33,7 +35,27 @@ const mochaProtocolPrefix = 'mocha$protocol:';
 // Note: https://mochajs.org/#running-mocha-in-the-browser
 const require = module.createRequire(import.meta.url);
 const mochaAbsolutePath = require.resolve('mocha/mocha.js');
+const testHtmlAbsolutePath = path.resolve(path.join(root, entry));
+const testHtml = fs.readFileSync(testHtmlAbsolutePath, 'utf-8');
+
+const testHtmlPlugin = () => {
+  return {
+    name: 'testHtmlPlugin',
+    transformIndexHtml: {
+      enforce: 'pre',
+      transform(html) {
+        return testHtml;
+      },
+    },
+  };
+}
+
 const server = await createServer({
+  plugins: barePathEnabled
+    ? [
+      testHtmlPlugin(),
+    ]
+    : [],
   resolve: {
     alias: {
       'mocha': mochaAbsolutePath,
@@ -50,7 +72,7 @@ const mochaProtocolPlayer = new MochaProtocolPlayer(reporter, { reporterOptions 
 
 const browser = await puppeteer.launch(options.puppeteer?.launchOptions);
 const page = await browser.newPage();
-const address = `http://localhost:${port}/${entry}`;
+const address = `http://localhost:${port}${entryPath}`;
 
 try {
   // Note: forward console output from the page (from Mocha and tests and code)
@@ -99,14 +121,14 @@ try {
   if (errorCount > 0) {
     mochaProtocolPlayer.errors.forEach(console.error);
   }
-  if (debug) {
-    await new Promise(() => { }); // Note: forever
-  } else {
+  if (!debug) {
     process.exit(failureCount + errorCount);
   }
 } finally {
-  await browser.close();
-  if (!debug) {
+  if (debug) {
+    await new Promise(() => { }); // Note: forever
+  } else {
+    await browser.close();
     await server.close();
   }
 }

@@ -36,5 +36,8 @@
   "bugs": {
     "url": "https://github.com/larsthorup/mocha-vite-puppeteer/issues"
   },
-  "homepage": "https://github.com/larsthorup/mocha-vite-puppeteer#readme"
+  "homepage": "https://github.com/larsthorup/mocha-vite-puppeteer#readme",
+  "devDependencies": {
+    "vite-plugin-inspect": "^0.3.7"
+  }
 }

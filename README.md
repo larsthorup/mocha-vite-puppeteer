@@ -99,6 +99,7 @@ $ npx mocha-vite-puppeteer --reporter mocha-junit-reporter --reporter-options mo
 | --verbose         | -v    | false       | Enables verbose reporting from Mocha-Vite-Puppeteer. Useful for debugging these flags and inputs. |
 | --debug           | -d    | false       | Sets debug mode for Mocha-Vite-Puppeteer. Automatically disabled puppeteer headless mode.         |
 | --config          | -c    | undefined   | Advanced config options. See section below for details                                            |
+| --enableBarePath  |       |             | Load entry html file from "/" (html file cannot use inline script of type "module")               |
 
 <details>
   <summary>Advanced Configuration</summary>
