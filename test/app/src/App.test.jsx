@@ -13,4 +13,7 @@ describe('App', () => {
     screen.getByText('count is: 1');
     console.log({innerText: countButton.innerText});
   });
+  it('should test path is not bare', () => {
+    expect(location.pathname).to.equal('/test.html')
+  }) 
 });
