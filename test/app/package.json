@@ -8,8 +8,7 @@
     "test": "npm run test:default && npm run test:flags && npm run test:config && npm run test:output && npm run test:bare && npm run test:coverage",
     "test:bare": "node ../../cli -e test-bare.html --enableBarePath",
     "test:config": "node ../../cli -e test-config.html -c test-config.json",
-    "test:coverage": "node ../../cli -c test-coverage.json && npm run test:coverage:report",
-    "test:coverage:report": "nyc report --reporter=text-summary | grep -q \"Statements   : 100% ( 8/8 )\" || (echo Expected coverage not found && exit 1)",
+    "test:coverage": "node ../../cli -c test-coverage.json && nyc report --reporter=text && nyc check-coverage --statements 100",
     "test:default": "node ../../cli",
     "test:flags": "node ../../cli -e test-flags.html -p 3006",
     "test:output": "node ../../cli | grep -q \"{ innerText: 'count is: 1' }\" || (echo Expected output not found && exit 1)"
