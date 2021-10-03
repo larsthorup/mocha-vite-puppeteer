@@ -10,6 +10,7 @@ const cliOptions = getopt({
   debug: { key: 'd', description: 'Enable debug mode. Note: test will run until quit via console (ctrl+c)' },
   config: { key: 'c', description: 'Relative path to JSON config file. See project description for more details.', args: 1, default: undefined },
   enableBarePath: { description: 'Load entry html file from "/" (html file cannot use inline script of type "module")' },
+  coverage: { description: 'Instrument and collect code coverage during test. Use "nyc" for reporting' }
 });
 
 Object.keys(cliOptions).forEach(key => {

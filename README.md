@@ -100,28 +100,47 @@ $ npx mocha-vite-puppeteer --reporter mocha-junit-reporter --reporter-options mo
 | --debug           | -d    | false       | Sets debug mode for Mocha-Vite-Puppeteer. Automatically disabled puppeteer headless mode.         |
 | --config          | -c    | undefined   | Advanced config options. See section below for details                                            |
 | --enableBarePath  |       |             | Load entry html file from "/" (html file cannot use inline script of type "module")               |
+| --coverage        |       |             | Instrument and collect code coverage during test. Use "nyc" for reporting                         |
 
 <details>
   <summary>Advanced Configuration</summary>
 
-    {
-      "port": 3010,
-      "reporter": "dot",
-      "puppeteer": {
-        "launchOptions": {
-          "headless": false,
-          ...
-        }
-      }
+```
+{
+  "port": 3010,
+  "reporter": "dot",
+  "coverage": true,
+  "puppeteer": {
+    "launchOptions": {
+      "headless": false,
+      ...
     }
+  },
+  "istanbul": {
+    "include": ["src/*"]
+  }
+}
+```
 
 The base-level of the object accepts any flag above, except config of course.
 
-Currently supports the key "puppeteer" for additional puppeteer configuration.
+The key "puppeteer" can be used for additional puppeteer configuration.
 The puppeteer currently only accepts the key launchOptions.
 see the [puppeteer docs on launch options](https://github.com/puppeteer/puppeteer/blob/main/docs/api.md#puppeteerlaunchoptions) for a full list of launch options available.
 
+The key "istanbul" can be used for additional code coverage configuration, see the section on Code Coverage below.
+
 </details>
+
+## Code coverage
+
+When using the `--coverage` option, a raw coverage report is produced in a `.nyc_output` folder. To get a nicely formatted report, you will have to use the [nyc](https://www.npmjs.com/package/nyc) CLI, such as:
+
+```
+nyc report --reporter=text-summary --reporter=html
+```
+
+Instrumentation for coverage analysis is handled by [vite-plugin-istanbul](https://www.npmjs.com/package/vite-plugin-istanbul). Any options needed for your project to work with this plugin can be added via the mocha-vite-puppeteer config file under the "istanbul" key, see Advanced configuration above.
 
 ## See also
 

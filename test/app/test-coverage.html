@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script>
+      // Note: globals expected by React and React Testing Library
+      // not sure why they must be here, instead of in test.js
+      global = window;
+      process = {
+        env: {}
+      };
+    </script>
+    <script type="module" src="/mocha-setup.js"></script>
+    <script type="module" src="/test-coverage-loader.js"></script>
+  </body>
+</html>

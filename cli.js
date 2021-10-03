@@ -5,6 +5,7 @@ import * as path from 'path';
 
 import puppeteer from 'puppeteer'
 import { createServer } from 'vite'
+import IstanbulPlugin from 'vite-plugin-istanbul';
 
 import { options } from './optionsParser.js';
 import { MochaProtocolPlayer } from './mochaProtocolPlayer.js';
@@ -38,24 +39,23 @@ const mochaAbsolutePath = require.resolve('mocha/mocha.js');
 const testHtmlAbsolutePath = path.resolve(path.join(root, entry));
 const testHtml = fs.readFileSync(testHtmlAbsolutePath, 'utf-8');
 
-const testHtmlPlugin = () => {
-  return {
-    name: 'testHtmlPlugin',
-    transformIndexHtml: {
-      enforce: 'pre',
-      transform(html) {
-        return testHtml;
-      },
+const testHtmlPlugin = {
+  name: 'testHtmlPlugin',
+  transformIndexHtml: {
+    enforce: 'pre',
+    transform(html) {
+      return testHtml;
     },
-  };
-}
+  },
+};
+
+const istanbulPlugin = IstanbulPlugin(options.istanbul || {});
 
 const server = await createServer({
-  plugins: barePathEnabled
-    ? [
-      testHtmlPlugin(),
-    ]
-    : [],
+  plugins: [].concat(
+    barePathEnabled ? [testHtmlPlugin] : [],
+    options.coverage ? [istanbulPlugin] : [],
+  ),
   resolve: {
     alias: {
       'mocha': mochaAbsolutePath,
@@ -121,12 +121,18 @@ try {
   if (errorCount > 0) {
     mochaProtocolPlayer.errors.forEach(console.error);
   }
+  if (options.coverage) {
+    const coverageJson = await page.evaluate(() => JSON.stringify(__coverage__));
+    const coverageDir = '.nyc_output';
+    fs.mkdirSync(coverageDir, { recursive: true });
+    fs.writeFileSync(path.join(coverageDir, 'out.json'), coverageJson);
+  }
   if (!debug) {
     process.exit(failureCount + errorCount);
   }
 } finally {
   if (debug) {
-    await new Promise(() => { }); // Note: forever
+    await new Promise(() => { }); // Note: until ctrl-C
   } else {
     await browser.close();
     await server.close();
