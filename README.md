@@ -137,10 +137,12 @@ The key "istanbul" can be used for additional code coverage configuration, see t
 When using the `--coverage` option, a raw coverage report is produced in a `.nyc_output` folder. To get a nicely formatted report, you will have to use the [nyc](https://www.npmjs.com/package/nyc) CLI, such as:
 
 ```
-nyc report --reporter=text-summary --reporter=html
+nyc report --reporter=text-summary --reporter=html --exclude-after-remap false
 ```
 
 Instrumentation for coverage analysis is handled by [vite-plugin-istanbul](https://www.npmjs.com/package/vite-plugin-istanbul). Any options needed for your project to work with this plugin can be added via the mocha-vite-puppeteer config file under the "istanbul" key, see Advanced configuration above.
+
+The `--exclude-after-remap false` option for `nyc` is needed because `vite` handle all transpilation (JSX, TypeScript etc) pre-instrumentation.
 
 ## See also
 
