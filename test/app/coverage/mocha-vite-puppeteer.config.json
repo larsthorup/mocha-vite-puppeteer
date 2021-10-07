@@ -1,5 +1,4 @@
 {
-  "entry": "test-coverage.html",
   "enableBarePath": true,
   "coverage": true,
   "istanbul": {
