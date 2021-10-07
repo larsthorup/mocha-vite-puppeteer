@@ -24,8 +24,10 @@ if (options.debug) {
 const verbose = options.verbose;
 if (verbose) { console.log('Starting mocha-vite-puppeteer with options: ', JSON.stringify(options)) }
 const root = '.'; // Note: relative to cwd
-const barePathEnabled = options.enableBarePath;
 const entry = options.entry; // Note: relative to root
+const testHtmlAbsolutePath = path.resolve(path.join(root, entry));
+const useDefaultTestHtml = entry === 'test.html' && !fs.existsSync(testHtmlAbsolutePath);
+const barePathEnabled = useDefaultTestHtml || options.enableBarePath;
 const entryPath = barePathEnabled ? '/' : `/${entry}`;
 const reporter = options.reporter;
 const reporterOptions = options.reporterOptions ? JSON.parse(fs.readFileSync(options.reporterOptions, 'utf-8')) : undefined;
@@ -36,8 +38,30 @@ const mochaProtocolPrefix = 'mocha$protocol:';
 // Note: https://mochajs.org/#running-mocha-in-the-browser
 const require = module.createRequire(import.meta.url);
 const mochaAbsolutePath = require.resolve('mocha/mocha.js');
-const testHtmlAbsolutePath = path.resolve(path.join(root, entry));
-const testHtml = fs.readFileSync(testHtmlAbsolutePath, 'utf-8');
+const readTestHtml = () => {
+  if (useDefaultTestHtml) {
+    return `
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script>
+      // Note: globals expected by React and React Testing Library
+      // not sure why they must be here, instead of in test.js
+      global = window;
+      process = {
+        env: {}
+      };
+    </script>
+    <script type="module" src="/default-mocha-setup.js"></script>
+    <script type="module" src="/default-test-loader.js"></script>
+  </body>
+</html>
+    `;
+  } else {
+    return fs.readFileSync(testHtmlAbsolutePath, 'utf-8');
+  }
+};
+const testHtml = readTestHtml();
 
 const testHtmlPlugin = {
   name: 'testHtmlPlugin',
@@ -46,6 +70,27 @@ const testHtmlPlugin = {
     transform(html) {
       return testHtml;
     },
+  },
+  resolveId(id) {
+    switch (id) {
+      case '/default-mocha-setup.js':
+        return '@default-mocha-setup';
+      case '/default-test-loader.js':
+        return '@default-test-loader';
+    }
+  },
+  load(id) {
+    switch (id) {
+      case '@default-mocha-setup':
+        return `
+import 'mocha';
+mocha.setup({ ui: 'bdd' });      
+      `;
+      case '@default-test-loader':
+        return `
+const modules = import.meta.globEager('/src/**/*.test.{js,jsx,ts,tsx}');
+        `;
+    }
   },
 };
 
