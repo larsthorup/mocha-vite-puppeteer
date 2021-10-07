@@ -9,7 +9,13 @@
         env: {}
       };
     </script>
-    <script type="module" src="/mocha-setup.js"></script>
-    <script type="module" src="/test-bare-loader.js"></script>
+    
+    <script type="module">
+      import 'mocha';
+      mocha.setup({ ui: 'bdd' });
+    </script>
+    <script type="module">
+      const modules = import.meta.globEager('/src/**/*.test.{js,jsx}');
+    </script>
   </body>
 </html>
