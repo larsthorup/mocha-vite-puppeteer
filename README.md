@@ -15,24 +15,7 @@ npm install mocha-vite-puppeteer
 
 ## Run
 
-[As usually](https://mochajs.org/#running-mocha-in-the-browser) with Mocha, you must first create a test.html next to your index.html. Be sure to configure the [glob import](https://vitejs.dev/guide/features.html#glob-import) to match your test file names:
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <body>
-    <script type="module">
-      import "mocha";
-      mocha.setup({ ui: "bdd" });
-    </script>
-    <script type="module">
-      const modules = import.meta.globEager("/src/**/*.test.{js,jsx}");
-    </script>
-  </body>
-</html>
-```
-
-Then add some test files using Mocha, e.g.
+First add some test files using Mocha, e.g. `Counter.test.jsx`:
 
 ```js
 import { expect } from "chai";
@@ -49,6 +32,12 @@ describe("Counter", () => {
     screen.getByText("count is: 1");
   });
 });
+```
+
+Remember to add any additional dependencies used by the tests, in this case:
+
+```bash
+$ npm install chai @testing-library/react
 ```
 
 Note: "mocha-vite-puppeteer" is not React specific, and should work just as well with Vue, Preact or any other front-end library supported by Vite.
@@ -87,6 +76,24 @@ You can optionally specify a JSON file with reporter options:
 ```bash
 $ npx mocha-vite-puppeteer --reporter mocha-junit-reporter --reporter-options mocha-junit-reporter.config.json
 ```
+
+By default `mocha-vite-puppeteer` will use a default "test.html" to configure mocha and load your test-files. But you can also write your own `test.html` placed next to `index.html`. Here is an example:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script type="module">
+      import "mocha";
+      mocha.setup({ ui: "bdd" });
+    </script>
+    <script type="module">
+      const modules = import.meta.globEager("/src/**/*.test.{js,jsx}");
+    </script>
+  </body>
+</html>
+```
+
 
 ## Available Flags
 
