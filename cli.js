@@ -20,6 +20,7 @@ if (options.debug) {
   options.puppeteer = options.puppeteer || {};
   options.puppeteer.launchOptions = options.puppeteer.launchOptions || {};
   options.puppeteer.launchOptions.headless = false;
+  options.puppeteer.launchOptions.devtools = true;
 }
 const verbose = options.verbose;
 if (verbose) { console.log('Starting mocha-vite-puppeteer with options: ', JSON.stringify(options)) }
