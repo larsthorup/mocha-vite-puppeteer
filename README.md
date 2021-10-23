@@ -77,23 +77,30 @@ You can optionally specify a JSON file with reporter options:
 $ npx mocha-vite-puppeteer --reporter mocha-junit-reporter --reporter-options mocha-junit-reporter.config.json
 ```
 
-By default `mocha-vite-puppeteer` will use a default "test.html" to configure mocha and load your test-files. But you can also write your own `test.html` placed next to `index.html`. Here is an example:
+By default `mocha-vite-puppeteer` will create a default "test.html" to configure mocha and load your test-files. But you can also write your own `test.html` placed next to `index.html`. Here is an example:
 
 ```html
 <!DOCTYPE html>
 <html lang="en">
   <body>
-    <script type="module">
-      import "mocha";
-      mocha.setup({ ui: "bdd" });
-    </script>
-    <script type="module">
-      const modules = import.meta.globEager("/src/**/*.test.{js,jsx}");
-    </script>
+    <script type="module" src="/mocha-setup.js"></script>
+    <script type="module" src="/test-loader.js"></script>
   </body>
 </html>
 ```
 
+mocha-setup.js:
+
+```js
+import "mocha";
+mocha.setup({ ui: "bdd" });
+```
+
+test-loader.js:
+
+```js
+const modules = import.meta.globEager("/src/**/*.test.{js,jsx}");
+```
 
 ## Available Flags
 
@@ -106,8 +113,8 @@ By default `mocha-vite-puppeteer` will use a default "test.html" to configure mo
 | --verbose         | -v    | false       | Enables verbose reporting from Mocha-Vite-Puppeteer. Useful for debugging these flags and inputs. |
 | --debug           | -d    | false       | Sets debug mode for Mocha-Vite-Puppeteer. Automatically disabled puppeteer headless mode.         |
 | --config          | -c    | undefined   | Advanced config options. See section below for details                                            |
-| --enableBarePath  |       |             | Load entry html file from "/" (html file cannot use inline script of type "module")               |
-| --coverage        |       |             | Instrument and collect code coverage during test. Use "nyc" for reporting                         |
+| --enableBarePath  |       | true        | Load entry html file from "/" (html file cannot use inline script of type "module")               |
+| --coverage        |       | false       | Instrument and collect code coverage during test. Use "nyc" for reporting                         |
 
 <details>
   <summary>Advanced Configuration</summary>

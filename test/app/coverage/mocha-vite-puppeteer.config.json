@@ -1,5 +1,4 @@
 {
-  "enableBarePath": true,
   "coverage": true,
   "istanbul": {
     "include": ["src/*"]

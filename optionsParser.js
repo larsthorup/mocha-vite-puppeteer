@@ -9,7 +9,7 @@ const cliOptions = getopt({
   verbose: { key: 'v', description: 'Verbose Output' },
   debug: { key: 'd', description: 'Enable debug mode. Note: test will run until quit via console (ctrl+c)' },
   config: { key: 'c', description: 'Relative path to JSON config file. See project description for more details.', args: 1, default: undefined },
-  enableBarePath: { description: 'Load entry html file from "/" (html file cannot use inline script of type "module")' },
+  enableBarePath: { description: 'Load entry html file from "/" (html file cannot use inline script of type "module")', args: 1, default: undefined },
   coverage: { description: 'Instrument and collect code coverage during test. Use "nyc" for reporting' }
 });
 
@@ -21,10 +21,13 @@ if (cliOptions.args) {
   console.warn('Mocha-vite-puppeteer recieved args that don\'t match the supported syntax. Please check the github for syntax help if this was a mistake')
 };
 
-const definedProps = obj => Object.fromEntries(
-  Object.entries(obj).filter(([k, v]) => v !== undefined)
+const definedProps = Object.fromEntries(
+  Object.entries(cliOptions).filter(([k, v]) => v !== undefined)
 );
+if (definedProps.enableBarePath !== undefined) {
+  definedProps.enableBarePath = definedProps.enableBarePath === 'true';
+}
 
 const jsonOptions = cliOptions.config && cliOptions.config !== 'undefined' ? JSON.parse(fs.readFileSync(cliOptions.config, 'utf-8')) : undefined;
 
-export const options = { ...jsonOptions, ...definedProps(cliOptions) };
+export const options = { enableBarePath: true, ...jsonOptions, ...definedProps };
