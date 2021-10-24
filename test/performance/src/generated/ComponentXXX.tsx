@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-const ComponentXXX = ({ name }) => {
-  const [value, setValue] = useState('');
+const ComponentXXX: React.FC<{ name: string }> = ({ name }) => {
+  const [value, setValue] = useState("");
 
-  const onChange = (ev) => {
+  const onChange: React.ChangeEventHandler<HTMLInputElement> = (ev) => {
     setValue(ev.target.value);
   };
 
   return (
     <div id="component-XXX">
       <h1>Greeting XXX</h1>
-      <p>{`Hello ${value ? `${value} ` : ''}from ${name}`}</p>
+      <p>{`Hello ${value ? `${value} ` : ""}from ${name}`}</p>
       <label>
         Enter name:
         <input onChange={onChange} value={value} />

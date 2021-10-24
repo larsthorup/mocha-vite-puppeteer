@@ -2,7 +2,7 @@ import * as fs from 'fs';
 
 const count = 100;
 const folder = 'src/generated';
-const fileNames = ['ComponentXXX.jsx', 'ComponentXXX.test.jsx'];
+const fileNames = ['ComponentXXX.tsx', 'ComponentXXX.test.tsx'];
 const sources = fileNames.map((fileName) =>
   fs.readFileSync(`${folder}/${fileName}`, 'utf-8')
 );
