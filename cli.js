@@ -27,21 +27,14 @@ if (verbose) { console.log('Starting mocha-vite-puppeteer with options: ', JSON.
 const root = '.'; // Note: relative to cwd
 const entry = options.entry; // Note: relative to root
 const testHtmlAbsolutePath = path.resolve(path.join(root, entry));
-const useDefaultTestHtml = entry === 'test.html' && !fs.existsSync(testHtmlAbsolutePath);
-const barePathEnabled = useDefaultTestHtml || options.enableBarePath;
-const entryPath = barePathEnabled ? '/' : `/${entry}`;
-const reporter = options.reporter;
-const reporterOptions = options.reporterOptions ? JSON.parse(fs.readFileSync(options.reporterOptions, 'utf-8')) : undefined;
-const debug = options.debug;
-const mochaProtocolPrefix = 'mocha$protocol:';
-// ----
-
-// Note: https://mochajs.org/#running-mocha-in-the-browser
-const require = module.createRequire(import.meta.url);
-const mochaAbsolutePath = require.resolve('mocha/mocha.js');
-const readTestHtml = () => {
-  if (useDefaultTestHtml) {
-    return `
+const mochaSetupAbsolutePath = path.resolve(path.join(root, 'mocha-setup.js'));
+const testLoaderAbsolutePath = path.resolve(path.join(root, 'test-loader.js'));
+const createDefaultFiles = entry === 'test.html'
+  && !fs.existsSync(testHtmlAbsolutePath)
+  && !fs.existsSync(mochaSetupAbsolutePath)
+  && !fs.existsSync(testLoaderAbsolutePath);
+if (createDefaultFiles) {
+  fs.writeFileSync(testHtmlAbsolutePath, `
 <!DOCTYPE html>
 <html lang="en">
   <body>
@@ -53,16 +46,28 @@ const readTestHtml = () => {
         env: {}
       };
     </script>
-    <script type="module" src="/default-mocha-setup.js"></script>
-    <script type="module" src="/default-test-loader.js"></script>
+    <script type="module" src="/mocha-setup.js"></script>
+    <script type="module" src="/test-loader.js"></script>
   </body>
-</html>
-    `;
-  } else {
-    return fs.readFileSync(testHtmlAbsolutePath, 'utf-8');
-  }
-};
-const testHtml = readTestHtml();
+</html>`);
+  fs.writeFileSync(mochaSetupAbsolutePath, `
+import 'mocha';
+mocha.setup({ ui: 'bdd' });`);
+  fs.writeFileSync(testLoaderAbsolutePath, `
+const modules = import.meta.globEager('/src/**/*.test.{js,jsx,ts,tsx}');`);
+}
+const barePathEnabled = options.enableBarePath;
+const entryPath = barePathEnabled ? '/' : `/${entry}`;
+const reporter = options.reporter;
+const reporterOptions = options.reporterOptions ? JSON.parse(fs.readFileSync(options.reporterOptions, 'utf-8')) : undefined;
+const debug = options.debug;
+const mochaProtocolPrefix = 'mocha$protocol:';
+// ----
+
+// Note: https://mochajs.org/#running-mocha-in-the-browser
+const require = module.createRequire(import.meta.url);
+const mochaAbsolutePath = require.resolve('mocha/mocha.js');
+const testHtml = fs.readFileSync(testHtmlAbsolutePath, 'utf-8');
 
 const testHtmlPlugin = {
   name: 'testHtmlPlugin',
@@ -71,27 +76,6 @@ const testHtmlPlugin = {
     transform(html) {
       return testHtml;
     },
-  },
-  resolveId(id) {
-    switch (id) {
-      case '/default-mocha-setup.js':
-        return '@default-mocha-setup';
-      case '/default-test-loader.js':
-        return '@default-test-loader';
-    }
-  },
-  load(id) {
-    switch (id) {
-      case '@default-mocha-setup':
-        return `
-import 'mocha';
-mocha.setup({ ui: 'bdd' });      
-      `;
-      case '@default-test-loader':
-        return `
-const modules = import.meta.globEager('/src/**/*.test.{js,jsx,ts,tsx}');
-        `;
-    }
   },
 };
 

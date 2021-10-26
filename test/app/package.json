@@ -6,13 +6,13 @@
     "build": "vite build",
     "serve": "vite preview",
     "test": "npm run test:default-config && npm run test:flags && npm run test:config && npm run test:output && npm run test:bare && npm run test:coverage && npm run test:default-test-html",
-    "test:bare": "cd bare && node ../../../cli --enableBarePath",
+    "test:bare": "cd bare && node ../../../cli",
     "test:config": "cd config && node ../../../cli -c mocha-vite-puppeteer.config.json",
     "test:coverage": "cd coverage && node ../../../cli -c mocha-vite-puppeteer.config.json && nyc report --reporter=text --cwd . && nyc check-coverage --statements 100 --cwd .",
-    "test:default-config": "cd default-config && node ../../../cli",
-    "test:default-test-html": "cd default-test-html && node ../../../cli",
-    "test:flags": "cd flags && node ../../../cli -e test-flags.html -p 3006",
-    "test:output": "cd default-config && node ../../../cli | grep -q \"{ innerText: 'count is: 1' }\" || (echo Expected output not found && exit 1)"
+    "test:default-config": "cd default-config && node ../../../cli --enableBarePath false",
+    "test:default-test-html": "cd default-test-html && rm -f test.html mocha-setup.js test-loader.js && node ../../../cli",
+    "test:flags": "cd flags && node ../../../cli -e test-flags.html -p 3006 --enableBarePath false",
+    "test:output": "cd default-config && node ../../../cli --enableBarePath false | grep -q \"{ innerText: 'count is: 1' }\" || (echo Expected output not found && exit 1)"
   },
   "dependencies": {
     "@testing-library/react": "^12.0.0",
