@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "mocha": "node ../../cli --enableBarePath false",
-    "test": "node src/generated/generate.mjs && npm run mocha && npm run vitest",
+    "test": "node src/generated/generate.mjs && npm run vitest && npm run mocha",
     "vitest": "vitest --global --environment jsdom --threads=false --run"
   },
   "dependencies": {
