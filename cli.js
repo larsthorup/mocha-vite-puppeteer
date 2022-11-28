@@ -106,19 +106,23 @@ const address = `http://localhost:${port}${entryPath}`;
 
 try {
   // Note: forward console output from the page (from Mocha and tests and code)
+  const logsResolving = [];
   page.on('console', async (msg) => {
-    const { _text } = msg;
-    if (_text.startsWith(mochaProtocolPrefix)) {
-      mochaProtocolPlayer.play(_text.substr(mochaProtocolPrefix.length));
+    const text = msg.text();
+    if (text.startsWith(mochaProtocolPrefix)) {
+      mochaProtocolPlayer.play(text.substr(mochaProtocolPrefix.length));
     } else {
       const argsResolving = msg.args().map((arg) => {
-        if (['object', 'function'].includes(arg._remoteObject.type)) {
+        const remoteObject = arg.remoteObject();
+        if (['object', 'function'].includes(remoteObject.type)) {
           return arg.jsonValue();
         } else {
-          return Promise.resolve(arg._remoteObject.value);
+          return Promise.resolve(remoteObject.value);
         }
       });
-      const argsResolved = await Promise.all(argsResolving);
+      const logResolving = Promise.all(argsResolving);
+      logsResolving.push(logResolving);
+      const argsResolved = await logResolving;
       console.log.apply(console, argsResolved);
     }
   });
@@ -147,6 +151,7 @@ try {
     prefix: mochaProtocolPrefix,
     reporterBody: MochaProtocolReporter.toString()
   });
+  await Promise.all(logsResolving); // wait for console.logs to complete
   const errorCount = mochaProtocolPlayer.errors.length;
   if (errorCount > 0) {
     mochaProtocolPlayer.errors.forEach(console.error);
