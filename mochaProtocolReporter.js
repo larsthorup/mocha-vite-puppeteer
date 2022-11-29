@@ -30,21 +30,31 @@ export function MochaProtocolReporter(runner, options) {
   this.send = function (event, args) {
     const dehydrate = (withParent) => (obj) => {
       if (obj) {
-        const constructorName = obj.constructor.name;
-        const commonProps = {
-          constructorName,
-        };
         if (obj instanceof Error) {
           const { message, stack, actual, expected } = obj;
           return {
-            constructorName: 'Error',
-            commonProps,
+            commonProps: {
+              constructorName: 'Error',
+            },
             message,
             stack,
             actual,
             expected
           };
         }
+        const constructorName = (({type}) => {
+          switch(type) {
+            case 'hook':
+              return 'Hook';
+            case 'test':
+              return 'Test';
+            default:
+              return 'Suite';
+          }
+        })(obj);
+        const commonProps = {
+          constructorName,
+        };
         switch (constructorName) {
           case 'Suite': {
             const { title, root, suites, tests, _afterAll, _afterEach, _beforeAll, _beforeEach } = obj;
