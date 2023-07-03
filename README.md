@@ -174,3 +174,11 @@ npm test
 ```
 
 Contributions welcome!
+
+## Publish
+
+```
+npm version minor
+npm publish
+git push
+```
