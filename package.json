@@ -8,10 +8,10 @@
   },
   "dependencies": {
     "mocha": "^10.1.0",
-    "puppeteer": "^19.3.0",
+    "puppeteer": "^20.7.4",
     "stdio": "^2.1.1",
-    "vite": "^3.2.4",
-    "vite-plugin-istanbul": "^3.0.2"
+    "vite": "^4.3.9",
+    "vite-plugin-istanbul": "^4.1.0"
   },
   "scripts": {
     "prepare": "npm run prepare:app && npm run prepare:performance && npm run prepare:unit",
